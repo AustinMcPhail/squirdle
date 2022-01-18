@@ -1,5 +1,8 @@
 module.exports = {
 	root: true,
+	rules: {
+		'no-unused-vars': 'off'
+	},
 	extends: ['eslint:recommended', 'prettier'],
 	plugins: ['svelte3'],
 	overrides: [{ files: ['*.svelte'], processor: 'svelte3/svelte3' }],
