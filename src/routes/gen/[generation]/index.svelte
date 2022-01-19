@@ -1,12 +1,13 @@
 <script context="module">
-	import { getAllPokemon } from '@utils';
+	import { getGeneration, toWordList } from '@utils';
+
 	/** @type {import('@sveltejs/kit').Load} */
-	export async function load({ fetch }) {
-		const { data, error } = await getAllPokemon(fetch);
+	export async function load({ params, fetch }) {
+		const { generation, error } = await getGeneration(params.generation, fetch);
 		if (error) return error;
 		return {
 			props: {
-				words: data
+				words: toWordList(generation.pokemon_species, 'name')
 			}
 		};
 	}
