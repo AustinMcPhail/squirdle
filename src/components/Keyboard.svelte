@@ -1,4 +1,6 @@
 <script>
+	import { createEventDispatcher } from 'svelte';
+
 	const keys = [
 		'q',
 		'w',
@@ -28,17 +30,40 @@
 		'm',
 		'-'
 	];
+
+	const dispatch = createEventDispatcher();
+
+	const handleKeyPress = (key) => {
+		dispatch('keyPress', {
+			key
+		});
+	};
+
+	const handleBack = (key) => {
+		dispatch('back');
+	};
+
+	const handleEnter = (key) => {
+		dispatch('enter');
+	};
 </script>
 
 <div class="keyboard">
 	{#each keys as key}
-		<button class="key" style:grid-area={key}>
+		<button class="key" style:grid-area={key} on:click={() => handleKeyPress(key)}>
 			{key}
 		</button>
 	{/each}
+	<button class="key back" style:grid-area={'<'} on:click={handleBack}>
+		{'<'}
+	</button>
+	<button class="key enter" style:grid-area={'>'} on:click={handleEnter}> GO </button>
 </div>
 
 <style>
+	.enter {
+		grid-column: span 2;
+	}
 	div.keyboard {
 		display: grid;
 		grid-template-areas:

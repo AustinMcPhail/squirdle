@@ -116,6 +116,18 @@
 	function handleUnfocus() {
 		active = false;
 	}
+
+	function handleKeyboardInput({ detail: { key } }) {
+		if (input.length < word.length) {
+			input += key;
+		}
+	}
+	function handleKeyboardBack() {
+		input = input.length ? input.slice(0, input.length - 1) : '';
+	}
+	function handleKeyboardEnter() {
+		handleTurnInput();
+	}
 </script>
 
 <div>
@@ -153,7 +165,11 @@
 			on:blur={handleUnfocus}
 		/>
 	</form>
-	<Keyboard />
+	<Keyboard
+		on:keyPress={handleKeyboardInput}
+		on:back={handleKeyboardBack}
+		on:enter={handleKeyboardEnter}
+	/>
 
 	{#if win}
 		<p>You Win!</p>
