@@ -118,6 +118,7 @@
 	}
 
 	function handleKeyboardInput({ detail: { key } }) {
+		active = true;
 		if (input.length < word.length) {
 			input += key;
 		}
