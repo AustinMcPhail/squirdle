@@ -84,6 +84,7 @@
 	let lose = false;
 	const handleTurnInput = () => {
 		if (input.length < word.length) return;
+		if (!words.includes(input)) return;
 
 		const turn = input.split('');
 		turnInputs = [...turnInputs, turn];
