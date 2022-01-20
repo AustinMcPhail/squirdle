@@ -1,4 +1,5 @@
 <script>
+	import '../global.css';
 	import { fade } from 'svelte/transition';
 
 	let showRules = false;
@@ -65,16 +66,6 @@
 </div>
 
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-	:global(body) {
-		font-family: 'VT323', monospace;
-		font-size: 2rem;
-
-		background: rgb(27, 27, 27);
-
-		color: white;
-	}
-
 	ol {
 		display: flex;
 		align-items: center;
@@ -183,7 +174,6 @@
 		border: none;
 		background: none;
 		cursor: pointer;
-		font-family: 'VT323', monospace;
 	}
 
 	section.game {

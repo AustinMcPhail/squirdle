@@ -143,7 +143,6 @@
 		background: none;
 
 		color: white;
-		font-family: 'VT323', monospace;
 
 		border: solid 1px #808fff;
 

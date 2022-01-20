@@ -160,7 +160,7 @@
 				<div class="end">
 					<p>You {win ? 'Win' : 'Lose'}!</p>
 					<p>{word}</p>
-					<button on:click={restartGame}>Restart</button>
+					<button class="restart" on:click={restartGame}>Restart</button>
 				</div>
 			{/if}
 		</div>
@@ -252,5 +252,27 @@
 
 		display: grid;
 		place-content: center;
+	}
+
+	button.restart {
+		background: none;
+		border: solid 1px #68845c;
+		padding: 1rem;
+
+		font-size: 2rem;
+
+		color: #68845c;
+		cursor: pointer;
+	}
+
+	button.restart {
+		background: none;
+		border: solid 1px #68845c;
+		padding: 1rem;
+
+		font-size: 2rem;
+
+		color: #68845c;
+		cursor: pointer;
 	}
 </style>
