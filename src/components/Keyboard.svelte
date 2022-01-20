@@ -1,5 +1,5 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 
 	const keys = [
 		'q',
@@ -46,24 +46,89 @@
 	const handleEnter = (key) => {
 		dispatch('enter');
 	};
+	let currentlyPressedKeys = {};
+	const keydownListener = (e) => {
+		const key = e.key.toLowerCase();
+
+		if (keys.includes(key)) {
+			currentlyPressedKeys[key] = true;
+			const button = window.document.getElementById(key);
+			button.classList.add('active');
+			handleKeyPress(key);
+		}
+
+		if (key === 'backspace') {
+			currentlyPressedKeys['back'] = true;
+			const button = window.document.getElementById('back');
+			button.classList.add('active');
+			handleBack();
+		}
+
+		if (key === 'enter') {
+			currentlyPressedKeys['enter'] = true;
+			const button = window.document.getElementById('enter');
+			button.classList.add('active');
+			handleEnter();
+		}
+	};
+	const keyupListener = (e) => {
+		const key = e.key.toLowerCase();
+
+		if (keys.includes(key)) {
+			currentlyPressedKeys[key] = false;
+			const button = window.document.getElementById(key);
+			button.classList.remove('active');
+		}
+
+		if (key === 'backspace') {
+			currentlyPressedKeys['back'] = false;
+			const button = window.document.getElementById('back');
+			button.classList.remove('active');
+		}
+
+		if (key === 'enter') {
+			currentlyPressedKeys['enter'] = false;
+			const button = window.document.getElementById('enter');
+			button.classList.remove('active');
+		}
+	};
 </script>
+
+<svelte:window on:keydown={keydownListener} on:keyup={keyupListener} />
 
 <div class="keyboard">
 	{#each keys as key}
-		<button class="key" style:grid-area={key} on:click={() => handleKeyPress(key)}>
+		<button
+			class="key"
+			class:active={currentlyPressedKeys[key]}
+			id={key}
+			style:grid-area={key}
+			on:click={() => handleKeyPress(key)}
+		>
 			{key}
 		</button>
 	{/each}
-	<button class="key back" style:grid-area={'<'} on:click={handleBack}>
+	<button
+		class="key back"
+		class:active={currentlyPressedKeys['back']}
+		id="back"
+		style:grid-area={'<'}
+		on:click={handleBack}
+	>
 		{'<'}
 	</button>
-	<button class="key enter" style:grid-area={'>'} on:click={handleEnter}> GO </button>
+	<button
+		class="key enter"
+		class:active={currentlyPressedKeys['enter']}
+		id="enter"
+		style:grid-area={'>'}
+		on:click={handleEnter}
+	>
+		GO
+	</button>
 </div>
 
 <style>
-	.enter {
-		grid-column: span 2;
-	}
 	div.keyboard {
 		display: grid;
 		grid-template-areas:
@@ -93,11 +158,25 @@
 		height: 3rem;
 		width: auto;
 	}
+
+	div.keyboard button.back {
+		border-color: #ff5555a3;
+		border-width: 5px;
+	}
+	div.keyboard button.enter {
+		grid-column: span 2;
+		border-color: #68845c;
+		border-width: 5px;
+	}
+	div.keyboard button.active {
+		background: #3a4ddc;
+	}
 	div.keyboard button:hover,
 	div.keyboard button:focus {
 		background: #808fff;
 	}
-	div.keyboard button:active {
+	div.keyboard button:active,
+	div.keyboard button.active {
 		background: #3a4ddc;
 	}
 </style>

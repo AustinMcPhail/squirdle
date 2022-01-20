@@ -140,20 +140,29 @@
 			on:click={handleDisplayClick}
 			on:focus={handleDisplayClick}
 		>
-			{#each Array.from({ length: maxTurns }) as _, turn}
-				{#each Array.from({ length: nameLength }) as _, position}
-					<div
-						data-status={turnResults[turn] ? turnResults[turn][position] : ''}
-						class:cursor={input.length === position && currentTurn === turn}
-					>
-						{#if currentTurn === turn}
-							{input.charAt(position) || ''}
-						{:else}
-							{turnInputs?.[turn]?.[position] || ''}
-						{/if}
-					</div>
+			{#if !win && !lose}
+				{#each Array.from({ length: maxTurns }) as _, turn}
+					{#each Array.from({ length: nameLength }) as _, position}
+						<div
+							data-status={turnResults[turn] ? turnResults[turn][position] : ''}
+							class:cursor={input.length === position && currentTurn === turn}
+							style:transition-delay={`${position * 0.1}s`}
+						>
+							{#if currentTurn === turn}
+								{input.charAt(position) || ''}
+							{:else}
+								{turnInputs?.[turn]?.[position] || ''}
+							{/if}
+						</div>
+					{/each}
 				{/each}
-			{/each}
+			{:else}
+				<div class="end">
+					<p>You {win ? 'Win' : 'Lose'}!</p>
+					<p>{word}</p>
+					<button on:click={restartGame}>Restart</button>
+				</div>
+			{/if}
 		</div>
 	</div>
 	<form class="hidden" on:submit|preventDefault={handleTurnInput}>
@@ -171,17 +180,6 @@
 		on:back={handleKeyboardBack}
 		on:enter={handleKeyboardEnter}
 	/>
-
-	{#if win}
-		<p>You Win!</p>
-		<button on:click={restartGame}>Restart</button>
-	{/if}
-
-	{#if lose}
-		<p>You Lose!</p>
-		<p>{word}</p>
-		<button on:click={restartGame}>Restart</button>
-	{/if}
 </div>
 
 <style>
@@ -217,17 +215,6 @@
 		border-radius: 5px;
 	}
 
-	div.display div {
-		text-transform: uppercase;
-
-		line-height: var(--box-size);
-		width: var(--box-size);
-
-		border: solid #68845c 1px;
-
-		text-align: center;
-	}
-
 	/* blink keyframes */
 	@keyframes blink {
 		0% {
@@ -239,13 +226,31 @@
 		animation: blink 1.5s steps(2) infinite;
 	}
 
+	div.display div {
+		text-transform: uppercase;
+		line-height: var(--box-size);
+		border: solid #68845c 1px;
+		text-align: center;
+		transition: all 0.2s ease-in-out;
+	}
+
 	.display div[data-status='1'] {
-		color: white;
+		opacity: 0.5;
 	}
 	.display div[data-status='2'] {
-		color: blue;
+		background: rgba(0, 0, 255, 0.25);
+		transition: all 0.2s ease-in-out;
 	}
 	.display div[data-status='3'] {
-		color: green;
+		background: rgba(0, 255, 0, 0.25);
+		transition: all 0.2s ease-in-out;
+	}
+
+	div.end {
+		grid-column: 1 / span var(--wordLength);
+		grid-row: 1 / span var(--maxTurns);
+
+		display: grid;
+		place-content: center;
 	}
 </style>
