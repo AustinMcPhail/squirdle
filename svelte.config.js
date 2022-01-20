@@ -1,10 +1,10 @@
 import path from 'path';
-import netlify from '@sveltejs/adapter-netlify';
+import vercel from '@sveltejs/adapter-vercel';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
-		adapter: netlify(),
+		adapter: vercel(),
 
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',
