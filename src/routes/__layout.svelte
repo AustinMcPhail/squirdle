@@ -51,6 +51,10 @@
 					<li><a href="/gen/8">VIII</a></li>
 				</ol>
 			</div>
+
+			<p class="credit">
+				Created by <a target="_target" href="https://twitter.com/TheWhalePhail">@TheWhalePhail</a>
+			</p>
 		</div>
 	{/if}
 	<main>
@@ -139,6 +143,12 @@
 	.rules p {
 		font-size: 2rem;
 		margin-bottom: 1rem;
+	}
+
+	.rules p.credit {
+		margin-top: 1rem;
+		font-size: 1.5rem;
+		text-align: right;
 	}
 
 	@media (min-width: 768px) {
