@@ -94,9 +94,7 @@
 	};
 </script>
 
-<svelte:window on:keydown={keydownListener} on:keyup={keyupListener} />
-
-<div class="keyboard">
+<div class="keyboard" on:keydown={keydownListener} on:keyup={keyupListener}>
 	{#each keys as key}
 		<button
 			class="key"
