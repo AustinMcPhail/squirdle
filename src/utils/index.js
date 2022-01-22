@@ -1,3 +1,7 @@
+export const getRandomWordFromList = (list) => {
+	return list[Math.floor(Math.random() * list.length)];
+};
+
 const getMode = (arr) => {
 	let modeMap = {};
 	let maxEl = arr[0],

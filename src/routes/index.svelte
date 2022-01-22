@@ -1,4 +1,6 @@
 <script context="module">
+	export const prerender = true;
+
 	import { getAllPokemon } from '@utils';
 	/** @type {import('@sveltejs/kit').Load} */
 	export async function load({ fetch }) {
