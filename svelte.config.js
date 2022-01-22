@@ -18,8 +18,7 @@ const config = {
 		},
 		prerender: {
 			enabled: true
-		},
-		ssr: false
+		}
 	}
 };
 
