@@ -4,9 +4,10 @@
 	export let maxTurns = 6;
 
 	export let words = [];
-	let word = '';
+	export let word = '';
+
 	$: {
-		word = getRandomWord(words);
+		if (!word) word = getRandomWord(words);
 	}
 
 	$: nameLength = word.length;

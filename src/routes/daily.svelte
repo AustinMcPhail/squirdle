@@ -1,18 +1,18 @@
 <script context="module">
 	export const prerender = true;
 
-	import { getGeneration, getRandomWordFromList, toWordList } from '@utils';
-	const GENERATIONS = [1, 2, 3, 4, 5, 6, 7, 8];
+	import { getAllPokemon, getRandomWordFromList } from '@utils';
 
 	/** @type {import('@sveltejs/kit').Load} */
 	export async function load({ fetch }) {
-		const randomGeneration = GENERATIONS[Math.floor(Math.random() * GENERATIONS.length)];
+		const { data, error } = await getAllPokemon(fetch);
+		const dailyWord = getRandomWordFromList(data);
 
-		const { generation, error } = await getGeneration(randomGeneration, fetch);
 		if (error) return error;
 		return {
 			props: {
-				words: [getRandomWordFromList(toWordList(generation.pokemon_species, 'name'))]
+				words: data,
+				word: dailyWord
 			}
 		};
 	}
@@ -21,6 +21,9 @@
 <script>
 	import Game from '@components/Game.svelte';
 	export let words = [];
+	export let word = '';
+
+	console.log({ words, word });
 </script>
 
-<Game {words} />
+<Game {words} {word} />
