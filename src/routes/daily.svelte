@@ -12,7 +12,7 @@
 		if (error) return error;
 		return {
 			props: {
-				words: getRandomWordFromList(toWordList(generation.pokemon_species, 'name'))
+				words: [getRandomWordFromList(toWordList(generation.pokemon_species, 'name'))]
 			}
 		};
 	}
