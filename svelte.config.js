@@ -15,6 +15,9 @@ const config = {
 					'@utils': path.resolve('./src/utils')
 				}
 			}
+		},
+		prerender: {
+			enabled: true
 		}
 	}
 };
