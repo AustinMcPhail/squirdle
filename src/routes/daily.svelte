@@ -20,10 +20,12 @@
 
 <script>
 	import Game from '@components/Game.svelte';
+	import { prerendering } from '$app/env';
 	export let words = [];
 	export let word = '';
 
 	console.log({ words, word });
 </script>
 
+Prerendered? {prerendering}
 <Game {words} {word} />
