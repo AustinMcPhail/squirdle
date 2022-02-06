@@ -16,7 +16,7 @@ server.register(fastifyMySql, {
 		process.env.DBPASS || 'password'
 	}@localhost/squirdle`
 });
-server.register(async (fastify, opts, next) => {
+server.register(async (fastify, _, next) => {
 	// check if db exists and contains pokemon table
 	const result = (
 		await fastify.mysql.query(

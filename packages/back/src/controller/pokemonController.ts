@@ -1,7 +1,6 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { doQuery } from '../util';
 import {
-	getAllPokemon,
 	getDailyPokemon,
 	getPokemon,
 	getPokemonFromGeneration,
@@ -116,7 +115,7 @@ export default async function pokemonController(fastify: FastifyInstance) {
 				return;
 			}
 
-			await doQuery(fastify, `INSERT INTO daily (name, day) VALUES (?, CURRENT_DATE())`, [
+			await doQuery(fastify, `INSERT IGNORE INTO daily (name, day) VALUES (?, CURRENT_DATE())`, [
 				randomPokemon.name
 			]);
 
