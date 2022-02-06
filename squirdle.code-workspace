@@ -1,0 +1,27 @@
+{
+  "folders": [
+    {
+      "name": "@squirdle/front",
+      "path": "./packages/front"
+    },
+    {
+      "name": "@squirdle/back",
+      "path": "./packages/back"
+    }
+  ],
+  "settings": {
+    "workbench.colorTheme": "Night Owl",
+    "eslint.validate": ["javascript", "javascriptreact", "svelte"],
+    "eslint.enable": true,
+
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[svelte]": {
+      "editor.defaultFormatter": "svelte.svelte-vscode"
+    },
+    "terminal.explorerKind": "integrated"
+  },
+  "extensions": {
+    "recommendations": []
+  }
+}
