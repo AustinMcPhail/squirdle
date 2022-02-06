@@ -18,7 +18,7 @@ type Response<
 		status: number;
 		error: Error;
 	}
-> = Err<null, E> | Ok<T, null>;
+> = Err<undefined, E> | Ok<T, undefined>;
 
 export const getAllGenerationNumerals = async (): Promise<Response<string[]>> => {
 	const response = await fetch(`https://pokeapi.co/api/v2/generation`);
@@ -100,9 +100,11 @@ export const getGeneration = async (generation: number): Promise<Response<Pokemo
 
 type RawPokemonDetails = {
 	sprites: { other: { ['official-artwork']: { front_default: string } } };
+	types: { type: { name: string } }[];
 };
 type PokemonDetails = {
 	sprite: string;
+	types: string[];
 };
 export const getPokemonDetails = async (url: string): Promise<Response<PokemonDetails>> => {
 	const response = await fetch(url);
@@ -116,8 +118,28 @@ export const getPokemonDetails = async (url: string): Promise<Response<PokemonDe
 	const pokemon = (await response.json()) as RawPokemonDetails;
 
 	const sprite = pokemon.sprites.other['official-artwork'].front_default;
+	const types = pokemon.types.map(({ type }) => type.name);
 
 	return {
-		data: { sprite }
+		data: { sprite, types }
 	};
 };
+
+/*
+"types": [
+        {
+            "slot": 1,
+            "type": {
+                "name": "grass",
+                "url": "https://pokeapi.co/api/v2/type/12/"
+            }
+        },
+        {
+            "slot": 2,
+            "type": {
+                "name": "poison",
+                "url": "https://pokeapi.co/api/v2/type/4/"
+            }
+        }
+    ],
+*/

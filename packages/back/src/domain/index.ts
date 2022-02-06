@@ -5,6 +5,7 @@ export type Pokemon = {
 	url: string;
 	image: string;
 	cry: string;
+	types?: string[];
 	used?: number;
 	lastUsed?: Date;
 };

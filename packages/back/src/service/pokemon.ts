@@ -1,6 +1,7 @@
 import { FastifyInstance } from 'fastify';
+import { getPokemonDetails } from '.';
 import { Pokemon } from '../domain';
-import { getMany, getOne } from '../util';
+import { doQuery, getMany, getOne } from '../util';
 
 export const getPokemonList = async (
 	fastify: FastifyInstance,
@@ -38,7 +39,7 @@ export const getDailyPokemon = async (
 
 	const { data: pokemon, error: pokemonError } = await getOne<Pokemon>(
 		fastify,
-		`SELECT id, name, generation, url, image, cry FROM pokemon WHERE name = ?`,
+		`SELECT id, name, generation, url, image, cry, types FROM pokemon WHERE name = ?`,
 		[daily.name]
 	);
 	if (pokemonError || !pokemon) {
@@ -52,11 +53,45 @@ export const getRandomPokemon = async (
 ): Promise<{ data?: Pokemon; error?: Error }> => {
 	const { data: randomPokemon, error } = await getOne<Pokemon>(
 		fastify,
-		`SELECT * FROM pokemon order by rand() limit 1`,
+		`SELECT id, name, generation, url, image, cry, types FROM pokemon order by rand() limit 1`,
 		[]
 	);
 	if (error || !randomPokemon) {
 		return { error: error || new Error('Could not get a random pokemon') };
 	}
 	return { data: randomPokemon };
+};
+
+export const getPokemon = async (
+	fastify: FastifyInstance,
+	id: number
+): Promise<{ data?: Pokemon; error?: Error }> => {
+	const { data: randomPokemon, error } = await getOne<Pokemon>(
+		fastify,
+		`SELECT id, name, generation, url, image, cry, types FROM pokemon where id = ?`,
+		[id]
+	);
+	if (error || !randomPokemon) {
+		return { error: error || new Error('Could not get pokemon ' + id) };
+	}
+	return { data: randomPokemon };
+};
+
+export const updatePokemon = async (
+	fastify: FastifyInstance,
+	pokemon: { name: string; url: string }
+): Promise<{ error?: Error }> => {
+	const { data: details, error: detailsError } = await getPokemonDetails(pokemon.url);
+	if (detailsError || !details) {
+		return { error: detailsError?.error || new Error('Could not get pokemon details') };
+	}
+	const { error: updateError } = await doQuery(
+		fastify,
+		`UPDATE pokemon SET types = ? WHERE name = ?`,
+		[`["${details.types.join('","')}"]`, pokemon.name]
+	);
+	if (updateError) {
+		return { error: updateError };
+	}
+	return {};
 };
