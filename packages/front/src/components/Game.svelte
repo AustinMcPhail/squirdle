@@ -1,46 +1,39 @@
-<script>
+<script lang="ts">
 	import Keyboard from './Keyboard.svelte';
+	import type { Pokemon } from './types';
 
 	export let maxTurns = 6;
 
+	export let answer: Pokemon;
 	export let words = [];
-	export let word = '';
 
-	$: {
-		if (!word) word = getRandomWord(words);
-	}
-
-	$: nameLength = word.length;
+	$: nameLength = answer.name.length;
 
 	let currentTurn = 0;
 	$: turnInputs = [];
 	$: turnResults = [];
 
-	const getRandomWord = (wordlist) => {
-		return wordlist[Math.floor(Math.random() * wordlist.length)];
-	};
-
 	const getTurnResults = (input) => {
 		return input.map((char, i) => {
 			// Correct character and correct position
-			if (word[i] === char) {
+			if (answer.name[i] === char) {
 				return 3;
 			}
 
 			// Correct character but wrong position
-			if (word.includes(char)) {
+			if (answer.name.includes(char)) {
 				//TODO: Needs to account for matched and unmatched duplicates
 
 				// Count duplicates
-				let duplicates = word.match(new RegExp(char, 'g')).length;
+				let duplicates = answer.name.match(new RegExp(char, 'g')).length;
 				let duplicatesInInput = input.filter((c) => char === c).length;
 
 				if (duplicatesInInput === 1 && duplicates === 1) return 2;
 
 				// Count matches ahead of index
-				let charPositions = word
+				let charPositions = answer.name
 					.split('')
-					.slice(i + 1, word.length)
+					.slice(i + 1, answer.name.length)
 					.map((c, i) => (c === char ? i : -1))
 					.filter((i) => i !== -1);
 				let inputPositions = input
@@ -50,7 +43,7 @@
 				const matchedAhead = inputPositions.filter((i) => charPositions.includes(i)).length;
 
 				// Count matches behind index
-				charPositions = word
+				charPositions = answer.name
 					.split('')
 					.slice(0, i)
 					.map((c, i) => (c === char ? i : -1))
@@ -84,7 +77,7 @@
 	let win = false;
 	let lose = false;
 	const handleTurnInput = () => {
-		if (input.length < word.length) return;
+		if (input.length < answer.name.length) return;
 		if (!words.includes(input)) return;
 
 		const turn = input.split('');
@@ -92,7 +85,7 @@
 		turnResults = [...turnResults, getTurnResults(turn)];
 		currentTurn += 1;
 
-		win = input === word;
+		win = input === answer.name;
 		lose = currentTurn === maxTurns;
 		input = '';
 	};
@@ -103,7 +96,6 @@
 		lose = false;
 		turnInputs = [];
 		turnResults = [];
-		// word = getRandomWord(words);
 		currentTurn = 0;
 	};
 
@@ -121,7 +113,7 @@
 
 	function handleKeyboardInput({ detail: { key } }) {
 		active = true;
-		if (input.length < word.length) {
+		if (input.length < answer.name.length) {
 			input += key;
 		}
 	}
@@ -161,7 +153,8 @@
 			{:else}
 				<div class="end">
 					<p>You {win ? 'Win' : 'Lose'}!</p>
-					<p>{word}</p>
+					<p>{answer.name}</p>
+					<img src={answer.image} alt="{answer.name} official art" />
 					<button class="restart" on:click={restartGame}>Restart</button>
 				</div>
 			{/if}
@@ -185,6 +178,9 @@
 </div>
 
 <style>
+	img {
+		max-width: 100px;
+	}
 	.hidden {
 		opacity: 0;
 		position: fixed;

@@ -1,9 +1,9 @@
 <script context="module" lang="ts">
 	export const prerender = true;
 
-	import { getRandomPokemon } from '@utils';
+	import { getDailyChallenge } from '@utils';
 	export async function load({ fetch }) {
-		const { data, error } = await getRandomPokemon(fetch);
+		const { data, error } = await getDailyChallenge(fetch);
 		if (error) return error;
 		return {
 			props: {
@@ -22,5 +22,4 @@
 	export let words = [];
 </script>
 
-{answer.name}
 <Game {answer} {words} />

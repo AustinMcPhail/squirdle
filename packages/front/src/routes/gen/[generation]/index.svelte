@@ -1,13 +1,12 @@
 <script context="module">
-	import { getGeneration, toWordList } from '@utils';
+	// import { getGeneration, toWordList } from '@utils';
 
-	/** @type {import('@sveltejs/kit').Load} */
 	export async function load({ params, fetch }) {
-		const { generation, error } = await getGeneration(params.generation, fetch);
-		if (error) return error;
+		// const { generation, error } = await getGeneration(params.generation, fetch);
+		// if (error) return error;
 		return {
 			props: {
-				words: toWordList(generation.pokemon_species, 'name')
+				// words: toWordList(generation.pokemon_species, 'name')
 			}
 		};
 	}
@@ -18,4 +17,4 @@
 	export let words = [];
 </script>
 
-<Game {words} />
+<Game answer={undefined} {words} />
