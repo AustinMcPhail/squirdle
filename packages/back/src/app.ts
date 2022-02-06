@@ -33,7 +33,7 @@ server.register(async (fastify, opts, next) => {
 	// add daily table
 	({ error } = await doQuery(
 		fastify,
-		`CREATE TABLE IF NOT EXISTS daily (id INT NOT NULL AUTO_INCREMENT, name varchar(255) not null, day Date, PRIMARY KEY (id), FOREIGN KEY (name) REFERENCES pokemon(name))`
+		`CREATE TABLE IF NOT EXISTS daily (id INT NOT NULL AUTO_INCREMENT, name varchar(255) NOT NULL, day Date UNIQUE, PRIMARY KEY (id), FOREIGN KEY (name) REFERENCES pokemon(name))`
 	));
 	if (error) throw error;
 
