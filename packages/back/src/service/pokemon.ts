@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import { getPokemonDetails } from '.';
+import { getAllPokemon, getPokemonDetails } from '.';
 import { Pokemon } from '../domain';
 import { doQuery, getMany, getOne } from '../util';
 
@@ -122,5 +122,44 @@ export const updatePokemon = async (
 	if (updateError) {
 		return { error: updateError };
 	}
+	return {};
+};
+
+export const seedDB = async (fastify: FastifyInstance): Promise<{ error?: any }> => {
+	const { data: pokemon, error: err } = await getAllPokemon();
+	if (err) {
+		return { error: err };
+	}
+	if (!pokemon || pokemon.length === 0) {
+		return { error: new Error('Could not get pokemon') };
+	}
+	let { error } = await doQuery(fastify, 'DROP TABLE IF EXISTS daily');
+	if (error) {
+		return { error };
+	}
+	({ error } = await doQuery(fastify, 'DROP TABLE IF EXISTS pokemon'));
+	if (error) {
+		return { error };
+	}
+	({ error } = await doQuery(
+		fastify,
+		`CREATE TABLE IF NOT EXISTS pokemon (id int not null, name varchar(255) unique not null, generation int not null, url varchar(255) not null, image varchar(255) not null, cry varchar(255) not null, types JSON, used int default 0, lastUsed Date, PRIMARY KEY (id))`
+	));
+	if (error) {
+		return { error };
+	}
+
+	for (const mon of pokemon) {
+		try {
+			await doQuery(
+				fastify,
+				`INSERT IGNORE INTO pokemon (id, name, generation, url, image, cry) VALUES (?, ?, ?, ?, ?, ?)`,
+				[mon.id, mon.name, mon.generation, mon.url, mon.image, mon.cry]
+			);
+		} catch (e) {
+			return { error: e };
+		}
+	}
+
 	return {};
 };
