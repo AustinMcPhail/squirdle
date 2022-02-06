@@ -1,32 +1,29 @@
 {
-	"name": "squirdle",
-	"version": "0.0.1",
-	"scripts": {
-		"dev": "svelte-kit dev",
-		"build": "svelte-kit build",
-		"package": "svelte-kit package",
-		"preview": "svelte-kit preview",
-		"lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
-		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
-	},
-	"devDependencies": {
-		"@sveltejs/adapter-auto": "next",
-		"@sveltejs/adapter-static": "^1.0.0-next.26",
-		"@sveltejs/adapter-vercel": "^1.0.0-next.39",
-		"@sveltejs/kit": "next",
-		"commitizen": "^4.2.4",
-		"eslint": "^8.8.0",
-		"eslint-config-prettier": "^8.3.0",
-		"eslint-plugin-svelte3": "^3.4.0",
-		"git-cz": "^4.8.0",
-		"prettier": "^2.5.1",
-		"prettier-plugin-svelte": "^2.6.0",
-		"svelte": "^3.46.4"
-	},
-	"type": "module",
-	"config": {
-		"commitizen": {
-			"path": "./node_modules/git-cz"
-		}
-	}
+  "name": "squirdle",
+  "version": "0.0.2",
+  "description": "Squirdle Monorepo",
+  "scripts": {
+    "build:back": "pnpm run build --filter @squirdle/back",
+    "build:portal": "pnpm run build --filter @squirdle/front",
+    "dev:back": "pnpm run dev --filter @squirdle/back",
+    "dev:front": "pnpm run dev --filter @squirdle/front",
+    "dev": "concurrently \"pnpm run dev:back\" \"pnpm run dev:front\"",
+    "start": "pnpm run dev"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.15",
+    "commitizen": "^4.2.4",
+    "concurrently": "^7.0.0",
+    "git-cz": "^4.8.0"
+  },
+  "keywords": [
+    "monorepo"
+  ],
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/git-cz"
+    }
+  },
+  "author": "Austin McPhail",
+  "license": "MIT"
 }

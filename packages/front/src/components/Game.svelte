@@ -7,7 +7,7 @@
 	export let word = '';
 
 	$: {
-		// if (!word) word = getRandomWord(words);
+		if (!word) word = getRandomWord(words);
 	}
 
 	$: nameLength = word.length;
@@ -133,7 +133,6 @@
 	}
 </script>
 
-{word}
 <div>
 	<div class="display-wrapper">
 		<div

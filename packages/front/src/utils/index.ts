@@ -3,11 +3,11 @@ export const getRandomWordFromList = (list) => {
 };
 
 const getMode = (arr) => {
-	let modeMap = {};
+	const modeMap = {};
 	let maxEl = arr[0],
 		maxCount = 1;
 	for (let i = 0; i < arr.length; i++) {
-		let el = arr[i];
+		const el = arr[i];
 		if (modeMap[el] == null) modeMap[el] = 1;
 		else modeMap[el]++;
 		if (modeMap[el] > maxCount) {
@@ -36,7 +36,7 @@ export const getAllGenerationNumerals = async (fetch) => {
 	};
 };
 
-export const getAllPokemon = async (fetch) => {
+export const getAllPokemon = async (fetch): Promise<{ data?; error? }> => {
 	const { generations, error } = await getAllGenerationNumerals(fetch);
 	if (error) return error;
 

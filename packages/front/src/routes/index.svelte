@@ -1,8 +1,7 @@
-<script context="module">
+<script context="module" lang="ts">
 	export const prerender = true;
 
 	import { getAllPokemon } from '@utils';
-	/** @type {import('@sveltejs/kit').Load} */
 	export async function load({ fetch }) {
 		const { data, error } = await getAllPokemon(fetch);
 		if (error) return error;
