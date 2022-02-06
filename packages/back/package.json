@@ -18,9 +18,11 @@
 	"dependencies": {
 		"fastify": "^3.27.1",
 		"fastify-mysql": "^2.1.0",
+		"luxon": "^2.3.0",
 		"node-fetch": "^3.2.0"
 	},
 	"devDependencies": {
+		"@types/luxon": "^2.0.9",
 		"@types/node": "^17.0.15",
 		"@typescript-eslint/eslint-plugin": "^5.10.2",
 		"@typescript-eslint/parser": "^5.10.2",
