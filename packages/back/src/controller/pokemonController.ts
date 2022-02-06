@@ -3,7 +3,13 @@ import { getAllPokemon } from '../service';
 
 export default async function pokemonController(fastify: FastifyInstance) {
 	fastify.get('/', async function (_request: FastifyRequest, reply: FastifyReply) {
-		reply.send([]);
+		const connection = await fastify.mysql.getConnection();
+		if (!connection) {
+			reply.status(500).send(new Error('Could not get db connection'));
+			return;
+		}
+
+		return reply.send([]);
 	});
 	fastify.get('/daily', async function (_request: FastifyRequest, reply: FastifyReply) {
 		reply.send([]);

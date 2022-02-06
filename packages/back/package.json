@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "Backend for Squirdle",
 	"main": "dist/index.js",
+	"types": "src/index.d.ts",
 	"scripts": {
 		"build": "rm -rf dist && tsc",
 		"watch": "tsc --watch --preserveWatchOutput --pretty",
@@ -16,6 +17,7 @@
 	"license": "ISC",
 	"dependencies": {
 		"fastify": "^3.27.1",
+		"fastify-mysql": "^2.1.0",
 		"node-fetch": "^3.2.0"
 	},
 	"devDependencies": {
