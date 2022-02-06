@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify';
-import indexController from './controller/indexController';
+import pokemonController from './controller/pokemonController';
 
 export default async function router(fastify: FastifyInstance) {
-	fastify.register(indexController, { prefix: '/' });
+	fastify.register(pokemonController, { prefix: '/' });
 }
