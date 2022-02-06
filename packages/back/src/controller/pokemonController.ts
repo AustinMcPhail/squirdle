@@ -1,45 +1,43 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { DateTime } from 'luxon';
-import { Pokemon } from '../domain';
-import {
-	doQuery,
-	getAllPokemon,
-	getOne,
-	getPokemonList,
-	getPokemonWithNameLengthList
-} from '../service';
+import { doQuery } from '../util';
+import { getDailyPokemon, getPokemonWithNameLengthList, getRandomPokemon } from '../service';
 
 export default async function pokemonController(fastify: FastifyInstance) {
 	fastify.get('/', async function (_request: FastifyRequest, reply: FastifyReply) {
-		const { data, error } = await getPokemonList(fastify);
+		const { data: randomPokemon, error: randomPokemonError } = await getRandomPokemon(fastify);
+		if (randomPokemonError || !randomPokemon) {
+			reply.status(500).send(randomPokemonError || new Error('Could not get a random pokemon'));
+			return;
+		}
 
-		return reply.send(data);
+		const { data: pokemonWithNamesOfLength, error: pokemonWithNamesOfLengthError } =
+			await getPokemonWithNameLengthList(fastify, randomPokemon.name.length);
+		if (pokemonWithNamesOfLengthError || !pokemonWithNamesOfLength)
+			return reply.send({
+				error: pokemonWithNamesOfLengthError || new Error('Could not get pokemon with name length')
+			});
+
+		return reply.send({
+			validPokemon: randomPokemon,
+			pokemon: pokemonWithNamesOfLength
+		});
 	});
 
 	fastify.get('/daily', async function (_request: FastifyRequest, reply: FastifyReply) {
-		const { data: daily, error } = await getOne<{ name: string }>(
-			fastify,
-			`SELECT name FROM daily ORDER BY id DESC LIMIT 1`,
-			[]
-		);
-		if (error || !daily) {
-			reply.status(500).send(error || new Error('Could not get daily pokemon'));
-			return;
-		}
+		const { data: daily, error } = await getDailyPokemon(fastify);
+		if (error || !daily)
+			return reply.send({ error: error || new Error('Could not get daily pokemon') });
 
-		const { data: pokemon, error: pokemonError } = await getOne<Pokemon>(
-			fastify,
-			`SELECT id, name, generation, url, image, cry FROM pokemon WHERE name = ?`,
-			[daily.name]
-		);
-		if (pokemonError || !pokemon) {
-			reply.status(500).send(pokemonError || new Error('Could not get pokemon'));
-			return;
-		}
+		const { data: pokemonWithNamesOfLength, error: pokemonWithNamesOfLengthError } =
+			await getPokemonWithNameLengthList(fastify, daily.name.length);
+		if (pokemonWithNamesOfLengthError || !pokemonWithNamesOfLength)
+			return reply.send({
+				error: pokemonWithNamesOfLengthError || new Error('Could not get pokemon with name length')
+			});
 
-		reply.send({
-			validPokemon: pokemon,
-			pokemon: await getPokemonWithNameLengthList(fastify, pokemon.name.length)
+		return reply.send({
+			validPokemon: daily,
+			pokemon: pokemonWithNamesOfLength
 		});
 	});
 
@@ -54,13 +52,9 @@ export default async function pokemonController(fastify: FastifyInstance) {
 		}
 
 		try {
-			const { data: randomPokemon, error } = await getOne<Pokemon>(
-				fastify,
-				`SELECT * FROM pokemon WHERE name NOT IN (SELECT name FROM daily) order by rand() limit 1`,
-				[]
-			);
-			if (error || !randomPokemon) {
-				reply.status(500).send(error || new Error('Could not get random pokemon'));
+			const { data: randomPokemon, error: randomPokemonError } = await getRandomPokemon(fastify);
+			if (randomPokemonError || !randomPokemon) {
+				reply.status(500).send(randomPokemonError || new Error('Could not get a random pokemon'));
 				return;
 			}
 			await doQuery(fastify, `INSERT INTO daily (name, day) VALUES (?, CURRENT_DATE())`, [
