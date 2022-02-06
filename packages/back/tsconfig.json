@@ -13,7 +13,8 @@
 		"esModuleInterop": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
-		"baseUrl": "."
+		"baseUrl": ".",
+		"noUnusedLocals": false
 	},
 	"exclude": ["node_modules"],
 	"include": ["./src/**/*.ts"]
