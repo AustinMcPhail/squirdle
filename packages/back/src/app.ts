@@ -10,8 +10,9 @@ const server = fastify({
 // Middleware: Router
 server.register(fastifyMySql, {
 	promise: true,
-	connectionString: 'mysql://root:password@localhost/squirdle',
-	password: process.env.DB_PASS || 'password'
+	connectionString: `mysql://${process.env.DBUSER || 'root'}:${
+		process.env.DBPASS || 'password'
+	}@localhost/squirdle`
 });
 server.register(router);
 
