@@ -1,20 +1,23 @@
 <script context="module">
-	// import { getGeneration, toWordList } from '@utils';
+	import { getGenerationPokemon } from '@utils';
 
 	export async function load({ params, fetch }) {
-		// const { generation, error } = await getGeneration(params.generation, fetch);
-		// if (error) return error;
+		const { data, error } = await getGenerationPokemon(params.generation, fetch);
+		if (error) return error;
 		return {
 			props: {
-				// words: toWordList(generation.pokemon_species, 'name')
+				answer: data.validPokemon,
+				words: data.pokemon
 			}
 		};
 	}
 </script>
 
-<script>
+<script lang="ts">
 	import Game from '@components/Game.svelte';
-	export let words = [];
+	import type { Pokemon } from '@components/types';
+	export let answer: Pokemon;
+	export let words: string[];
 </script>
 
-<Game answer={undefined} {words} />
+<Game {answer} {words} />
