@@ -4,7 +4,9 @@ import {
 	getAllPokemon,
 	getDailyPokemon,
 	getPokemon,
+	getPokemonFromGeneration,
 	getPokemonWithNameLengthList,
+	getPokemonWithNameLengthListFromGeneration,
 	getRandomPokemon,
 	updatePokemon
 } from '../service';
@@ -35,11 +37,50 @@ export default async function pokemonController(fastify: FastifyInstance) {
 			await getPokemonWithNameLengthList(fastify, randomPokemon.name.length);
 		if (pokemonWithNamesOfLengthError || !pokemonWithNamesOfLength)
 			return reply.send({
-				error: pokemonWithNamesOfLengthError || new Error('Could not get pokemon with name length')
+				error:
+					pokemonWithNamesOfLengthError ||
+					new Error('Could not get pokemon with name length: ' + randomPokemon.name.length)
 			});
 
 		return reply.send({
 			validPokemon: randomPokemon,
+			pokemon: pokemonWithNamesOfLength
+		});
+	});
+
+	fastify.get('gen/:gen', async function (_request: FastifyRequest, reply: FastifyReply) {
+		const generation: number = +(_request.params as { gen: string }).gen;
+		let { data: pokemon, error: pokemonError } = await getPokemonFromGeneration(
+			fastify,
+			generation
+		);
+		if (pokemonError || !pokemon) {
+			reply.status(500).send(pokemonError || new Error('Could not get generation'));
+			return;
+		}
+
+		if (!pokemon.types) {
+			const { error: updateError } = await updatePokemon(fastify, pokemon);
+			if (!updateError) {
+				({ data: pokemon, error: pokemonError } = await getPokemon(fastify, pokemon.id));
+				if (pokemonError || !pokemon) {
+					reply.status(500).send(pokemonError || new Error('Could not get a random pokemon'));
+					return;
+				}
+			}
+		}
+
+		const { data: pokemonWithNamesOfLength, error: pokemonWithNamesOfLengthError } =
+			await getPokemonWithNameLengthListFromGeneration(fastify, pokemon.name.length, generation);
+		if (pokemonWithNamesOfLengthError || !pokemonWithNamesOfLength)
+			return reply.send({
+				error:
+					pokemonWithNamesOfLengthError ||
+					new Error('Could not get pokemon with name length: ' + pokemon.name.length)
+			});
+
+		return reply.send({
+			validPokemon: pokemon,
 			pokemon: pokemonWithNamesOfLength
 		});
 	});
@@ -53,7 +94,9 @@ export default async function pokemonController(fastify: FastifyInstance) {
 			await getPokemonWithNameLengthList(fastify, daily.name.length);
 		if (pokemonWithNamesOfLengthError || !pokemonWithNamesOfLength)
 			return reply.send({
-				error: pokemonWithNamesOfLengthError || new Error('Could not get pokemon with name length')
+				error:
+					pokemonWithNamesOfLengthError ||
+					new Error('Could not get pokemon with name length: ' + daily.name.length)
 			});
 
 		return reply.send({

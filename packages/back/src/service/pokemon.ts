@@ -20,8 +20,22 @@ export const getPokemonWithNameLengthList = async (
 ): Promise<{ data: string[]; error?: Error }> => {
 	const { data, error } = await getMany<Pokemon>(
 		fastify,
-		`SELECT name FROM pokemon WHERE CHAR_LENGTH(name) = ?`,
+		`SELECT name FROM pokemon WHERE CHAR_LENGTH(name) <= ?`,
 		[length]
+	);
+	if (error || !data) return { data: [], error: error || new Error('Could not get pokemon list') };
+	return { data: data.map((pokemon) => pokemon.name), error };
+};
+
+export const getPokemonWithNameLengthListFromGeneration = async (
+	fastify: FastifyInstance,
+	length: number,
+	generation: number
+): Promise<{ data: string[]; error?: Error }> => {
+	const { data, error } = await getMany<Pokemon>(
+		fastify,
+		`SELECT name FROM pokemon WHERE CHAR_LENGTH(name) <= ? AND generation = ?`,
+		[length, generation]
 	);
 	if (error || !data) return { data: [], error: error || new Error('Could not get pokemon list') };
 	return { data: data.map((pokemon) => pokemon.name), error };
@@ -73,6 +87,21 @@ export const getPokemon = async (
 	);
 	if (error || !randomPokemon) {
 		return { error: error || new Error('Could not get pokemon ' + id) };
+	}
+	return { data: randomPokemon };
+};
+
+export const getPokemonFromGeneration = async (
+	fastify: FastifyInstance,
+	generation: number
+): Promise<{ data?: Pokemon; error?: Error }> => {
+	const { data: randomPokemon, error } = await getOne<Pokemon>(
+		fastify,
+		`SELECT id, name, generation, url, image, cry, types FROM pokemon where generation = ?`,
+		[generation]
+	);
+	if (error || !randomPokemon) {
+		return { error: error || new Error('Could not get generation ' + generation) };
 	}
 	return { data: randomPokemon };
 };
