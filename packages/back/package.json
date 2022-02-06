@@ -5,10 +5,10 @@
 	"main": "dist/index.js",
 	"types": "src/index.d.ts",
 	"scripts": {
-		"build": "rm -rf dist && tsc",
+		"build": "npm i && rm -rf dist && tsc",
+		"start": "node dist/index.js",
 		"watch": "tsc --watch --preserveWatchOutput --pretty",
 		"dev": "cross-env NODE_ENV=dev nodemon",
-		"start": "ts-node src/index.ts",
 		"lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
 	},
