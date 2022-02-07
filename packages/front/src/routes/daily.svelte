@@ -1,6 +1,4 @@
 <script context="module" lang="ts">
-	export const prerender = true;
-
 	import { getDailyChallenge } from '@utils';
 	export async function load({ fetch }) {
 		const { data, error } = await getDailyChallenge(fetch);

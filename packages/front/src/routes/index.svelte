@@ -1,6 +1,4 @@
 <script context="module" lang="ts">
-	export const prerender = true;
-
 	import { getRandomPokemon } from '@utils';
 	export async function load({ fetch }) {
 		const { data, error } = await getRandomPokemon(fetch);
