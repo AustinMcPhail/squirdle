@@ -6,7 +6,7 @@
     "dev": "concurrently \"pnpm run dev:back\" \"pnpm run dev:front\"",
     "start": "concurrently \"pnpm run start:back\" \"pnpm run start:front\"",
     "build:back": "pnpm run build --filter @squirdle/back",
-    "build:portal": "pnpm run build --filter @squirdle/front",
+    "build:front": "pnpm run build --filter @squirdle/front",
     "dev:back": "pnpm run dev --filter @squirdle/back",
     "dev:front": "pnpm run dev --filter @squirdle/front",
     "start:back": "pnpm run start --filter @squirdle/back",
