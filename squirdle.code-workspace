@@ -8,6 +8,10 @@
       "name": "@squirdle/back",
       "path": "./packages/back"
     }
+    // {
+    //   "name": "@squirdle",
+    //   "path": "."
+    // }
   ],
   "settings": {
     "workbench.colorTheme": "Night Owl",
