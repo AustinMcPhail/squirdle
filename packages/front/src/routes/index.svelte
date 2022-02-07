@@ -22,5 +22,4 @@
 	export let words = [];
 </script>
 
-{answer.name}
 <Game {answer} {words} />
