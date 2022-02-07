@@ -10,6 +10,9 @@ const config = {
 
 	kit: {
 		adapter: adapter(),
+		files: {
+			lib: 'src'
+		},
 		vite: {
 			resolve: {
 				alias: {
