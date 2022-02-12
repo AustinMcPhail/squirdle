@@ -9,7 +9,7 @@
 	<title>Squirdle</title>
 </svelte:head>
 
-<div class="wrapper">
+<!-- <div class="wrapper">
 	<header>
 		<button aria-label="Squirdle: Click to bring up rules" on:click={() => (showRules = true)}>
 			<h1>Squirdle</h1>
@@ -60,11 +60,11 @@
 	{/if}
 	<main>
 		<section class="game">
-			<slot />
-		</section>
+<slot />
+</section>
 	</main>
-</div>
-
+</div> -->
+<!-- 
 <style>
 	ol {
 		display: flex;
@@ -183,5 +183,18 @@
 	h1 {
 		font-size: 3rem;
 		color: white;
+	}
+</style> -->
+<main>
+	<slot />
+</main>
+
+<style>
+	main {
+		margin-inline: 2rem;
+		display: grid;
+		place-content: center;
+	}
+	@media (min-width: 200px) {
 	}
 </style>

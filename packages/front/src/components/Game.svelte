@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+
 	import Keyboard from './Keyboard.svelte';
 	import type { Pokemon } from './types';
 
@@ -125,7 +127,19 @@
 	}
 </script>
 
-<div>
+<div class="game" style:--wordLength={answer.name.length} style:--maxTurns={maxTurns}>
+	<!-- {#each Array.from({ length: maxTurns }) as _, turn}
+		<div class="turn">
+			{#each Array.from({ length: nameLength }) as _, position}
+				<div class="box" data-status={turnResults[turn] ? turnResults[turn][position] : ''}>
+					&nbsp;
+				</div>
+			{/each}
+		</div>
+	{/each} -->
+</div>
+
+<!-- <div>
 	<div class="display-wrapper">
 		<div
 			class="display"
@@ -272,5 +286,37 @@
 
 		color: #68845c;
 		cursor: pointer;
+	}
+</style>
+-->
+<style>
+	.game {
+		--game-size: min(75vw, 500px);
+
+		height: var(--game-size);
+		width: var(--game-size);
+
+		border: solid white 1px;
+	}
+	.turn {
+		display: grid;
+		grid-template-columns: repeat(var(--wordLength), 1fr);
+		gap: 0.5rem;
+	}
+	.box {
+		background: none;
+		border: 1px solid white;
+	}
+
+	.box[data-status='1'] {
+		opacity: 0.5;
+	}
+	.box[data-status='2'] {
+		background: rgba(0, 0, 255, 0.25);
+		transition: all 0.2s ease-in-out;
+	}
+	.box[data-status='3'] {
+		background: rgba(0, 255, 0, 0.25);
+		transition: all 0.2s ease-in-out;
 	}
 </style>
