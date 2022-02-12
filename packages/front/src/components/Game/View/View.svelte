@@ -32,6 +32,7 @@
 					class="box"
 					data-status={turnResults[turn] ? turnResults[turn][position] : ''}
 					class:cursor={input.length === position && currentTurn === turn}
+					style:transition-delay={`${position * 0.1}s`}
 				>
 					{#if currentTurn === turn}
 						{input.charAt(position) || ''}
@@ -78,7 +79,9 @@
 
 		text-align: center;
 
-		transition: background opacity 0.2s ease-in-out;
+		transition-property: opacity background-color;
+		transition-duration: 0.25s;
+		transition-timing-function: ease-in-out;
 	}
 
 	.box[data-status='1'] {
