@@ -191,10 +191,7 @@
 
 <style>
 	main {
-		margin-inline: 2rem;
 		display: grid;
 		place-content: center;
-	}
-	@media (min-width: 200px) {
 	}
 </style>

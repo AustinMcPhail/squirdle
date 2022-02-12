@@ -14,7 +14,7 @@
 </script>
 
 <script lang="ts">
-	import Game from '@components/Game.svelte';
+	import Game from '@components/Game';
 	import type { Pokemon } from '@components/types';
 	export let answer: Pokemon;
 	export let words: string[];
