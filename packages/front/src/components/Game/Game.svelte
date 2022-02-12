@@ -77,8 +77,10 @@
 	let input = '';
 	let win = false;
 	let lose = false;
+
 	const handleTurnInput = (i: string) => {
 		if (i.length < answer.name.length) return;
+		if (currentTurn >= maxTurns) return;
 
 		// TODO: Allow for spaces & check for words short than the target word
 		if (!words.includes(i)) return;
@@ -87,10 +89,29 @@
 		const turn = input.split('');
 		turnInputs = [...turnInputs, turn];
 		turnResults = [...turnResults, getTurnResults(turn)];
-		currentTurn += 1;
 
-		clearInput();
+		checkGameState();
 	};
+
+	function checkGameState() {
+		if (input === answer.name) {
+			setTimeout(() => {
+				status = 'win';
+			}, 100 * answer.name.length);
+			clearInput();
+			currentTurn += 1;
+		} else if (currentTurn + 1 >= maxTurns) {
+			setTimeout(() => {
+				status = 'lose';
+			}, 100 * answer.name.length);
+			clearInput();
+			currentTurn += 1;
+		} else {
+			clearInput();
+			currentTurn += 1;
+		}
+	}
+
 	function handleSubmit(event: CustomEvent<{ input: string }>) {
 		handleTurnInput(event.detail.input);
 	}

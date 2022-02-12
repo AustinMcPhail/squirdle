@@ -18,6 +18,8 @@
 
 	export let answer: Pokemon;
 	export let words = [];
+	let status: 'play' | 'win' | 'lose' = 'play';
 </script>
 
-<Game {answer} {words} />
+{status}
+<Game bind:status {answer} {words} />
