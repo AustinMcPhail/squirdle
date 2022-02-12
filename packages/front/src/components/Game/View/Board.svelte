@@ -18,6 +18,10 @@
 						data-status={turnResults[turn] ? turnResults[turn][position] : ''}
 						class:cursor={input.length === position && currentTurn === turn}
 						style:transition-delay={`${position * 0.1}s`}
+						style:border-left={position === 0 ? 'none' : ''}
+						style:border-right={position === length - 1 ? 'none' : ''}
+						style:border-top={turn === 0 ? 'none' : ''}
+						style:border-bottom={turn === turns - 1 ? 'none' : ''}
 					>
 						{#if currentTurn === turn}
 							{input.charAt(position) || ''}
@@ -33,12 +37,16 @@
 
 <style>
 	.board {
+		background: #68845c40;
+		position: relative;
 		border: var(--border);
+		border-radius: 2px;
 		height: 100%;
 		display: grid;
 	}
 
 	.inner {
+		width: 100%;
 		display: grid;
 		grid-template-rows: repeat(var(--maxTurns), 1fr);
 	}

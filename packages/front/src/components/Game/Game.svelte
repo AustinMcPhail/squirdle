@@ -118,46 +118,32 @@
 	function clearInput() {
 		input = '';
 	}
-	function restartGame() {
-		clearInput();
-		status = 'play';
-
-		turnInputs = [];
-		turnResults = [];
-		currentTurn = 0;
-	}
-
-	let form: HTMLInputElement | undefined;
-	function handleFocus() {
-		if (win || lose) return;
-		if (form) form.focus();
-	}
-	function handleBlur() {
-		active = false;
-	}
 </script>
 
-<GameView bind:active on:focus={handleFocus} length={answer.name.length} turns={maxTurns}>
-	{#if status === 'play'}
-		<Board
-			length={answer.name.length}
-			turns={maxTurns}
-			{currentTurn}
-			{input}
-			{turnResults}
-			{turnInputs}
-		/>
-	{:else if status === 'win'}
-		<Win {answer} />
-	{:else if status === 'lose'}
-		<p>Lost</p>
-	{/if}
-</GameView>
-<GameControls
-	bind:active
-	bind:input
-	bind:form
-	on:submit={handleSubmit}
-	on:blur={handleBlur}
-	length={answer.name.length}
-/>
+<div class="game">
+	<GameView length={answer.name.length} turns={maxTurns}>
+		{#if status === 'play'}
+			<Board
+				length={answer.name.length}
+				turns={maxTurns}
+				{currentTurn}
+				{input}
+				{turnResults}
+				{turnInputs}
+			/>
+		{:else if status === 'win'}
+			<Win {answer} />
+		{:else if status === 'lose'}
+			<p>Lost</p>
+		{/if}
+	</GameView>
+	<GameControls bind:input on:submit={handleSubmit} length={answer.name.length} />
+</div>
+
+<style>
+	.game {
+		height: 100%;
+		width: 100%;
+		display: grid;
+	}
+</style>

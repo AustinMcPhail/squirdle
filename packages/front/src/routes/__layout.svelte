@@ -185,13 +185,53 @@
 		color: white;
 	}
 </style> -->
-<main>
-	<slot />
-</main>
+<header>
+	<h1>Squirdle</h1>
+</header>
+<div class="container">
+	<main>
+		<slot />
+	</main>
+	<aside>
+		<h3>Rules</h3>
+	</aside>
+</div>
 
 <style>
+	.container {
+		position: relative;
+
+		height: 100vh;
+		display: block;
+	}
+
+	header {
+		text-align: center;
+		padding-block: var(--space);
+	}
+
 	main {
-		display: grid;
-		place-content: center;
+		grid-area: main;
+	}
+
+	aside {
+		position: fixed;
+		top: 0 + var(--space);
+		left: 0 + var(--space);
+	}
+
+	aside h3 {
+		text-align: center;
+	}
+	@media (min-width: 768px) {
+		aside {
+			position: unset;
+			grid-area: rules;
+			padding-inline: var(--space);
+		}
+		.container {
+			display: grid;
+			grid-template-areas: 'main rules';
+		}
 	}
 </style>
