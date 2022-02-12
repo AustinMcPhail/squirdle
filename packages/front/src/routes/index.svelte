@@ -21,5 +21,4 @@
 	let status: 'play' | 'win' | 'lose' = 'play';
 </script>
 
-{status}
 <Game bind:status {answer} {words} />

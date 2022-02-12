@@ -1,5 +1,5 @@
 <script lang="ts">
-	import GameView from './View';
+	import GameView, { Board, Win } from './View';
 	import GameControls from './Controls';
 	import type { Pokemon } from '../types';
 
@@ -137,31 +137,27 @@
 	}
 </script>
 
-<div>
-	<GameView
-		bind:active
-		on:focus={handleFocus}
-		length={answer.name.length}
-		turns={maxTurns}
-		{turnResults}
-		{turnInputs}
-		{input}
-		{currentTurn}
-	/>
-	<GameControls
-		bind:active
-		bind:input
-		bind:form
-		on:submit={handleSubmit}
-		on:blur={handleBlur}
-		length={answer.name.length}
-	/>
-</div>
-
-<style>
-	div {
-		display: flex;
-		flex-direction: column;
-		gap: 0.25rem;
-	}
-</style>
+<GameView bind:active on:focus={handleFocus} length={answer.name.length} turns={maxTurns}>
+	{#if status === 'play'}
+		<Board
+			length={answer.name.length}
+			turns={maxTurns}
+			{currentTurn}
+			{input}
+			{turnResults}
+			{turnInputs}
+		/>
+	{:else if status === 'win'}
+		<Win {answer} />
+	{:else if status === 'lose'}
+		<p>Lost</p>
+	{/if}
+</GameView>
+<GameControls
+	bind:active
+	bind:input
+	bind:form
+	on:submit={handleSubmit}
+	on:blur={handleBlur}
+	length={answer.name.length}
+/>
