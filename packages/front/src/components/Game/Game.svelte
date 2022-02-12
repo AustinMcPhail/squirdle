@@ -3,6 +3,8 @@
 	import GameControls from './Controls';
 	import type { Pokemon } from '../types';
 
+	export let status: 'play' | 'win' | 'lose' = 'play';
+
 	export let maxTurns = 6;
 	export let answer: Pokemon;
 	export let words = [];
@@ -97,9 +99,8 @@
 	}
 	function restartGame() {
 		clearInput();
+		status = 'play';
 
-		win = false;
-		lose = false;
 		turnInputs = [];
 		turnResults = [];
 		currentTurn = 0;
@@ -115,49 +116,31 @@
 	}
 </script>
 
-<GameView
-	bind:active
-	on:focus={handleFocus}
-	length={answer.name.length}
-	turns={maxTurns}
-	{turnResults}
-	{turnInputs}
-	{input}
-	{currentTurn}
-/>
-<GameControls
-	bind:active
-	bind:input
-	bind:form
-	on:submit={handleSubmit}
-	on:blur={handleBlur}
-	length={answer.name.length}
-/>
+<div>
+	<GameView
+		bind:active
+		on:focus={handleFocus}
+		length={answer.name.length}
+		turns={maxTurns}
+		{turnResults}
+		{turnInputs}
+		{input}
+		{currentTurn}
+	/>
+	<GameControls
+		bind:active
+		bind:input
+		bind:form
+		on:submit={handleSubmit}
+		on:blur={handleBlur}
+		length={answer.name.length}
+	/>
+</div>
 
-<!-- <style>
-	/* img {
-		max-width: 100px;
+<style>
+	div {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
 	}
-
-	button.restart {
-		background: none;
-		border: solid 1px #68845c;
-		padding: 1rem;
-
-		font-size: 2rem;
-
-		color: #68845c;
-		cursor: pointer;
-	}
-
-	button.restart {
-		background: none;
-		border: solid 1px #68845c;
-		padding: 1rem;
-
-		font-size: 2rem;
-
-		color: #68845c;
-		cursor: pointer;
-	} */
-</style> -->
+</style>

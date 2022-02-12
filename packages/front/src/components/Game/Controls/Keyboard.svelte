@@ -175,8 +175,8 @@
 		text-transform: uppercase;
 
 		padding: 0;
+		padding-block: 0.5rem;
 
-		height: 3rem;
 		width: auto;
 	}
 
