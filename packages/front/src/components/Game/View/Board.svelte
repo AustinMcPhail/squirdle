@@ -39,8 +39,8 @@
 	}
 
 	.inner {
-		margin: 5px;
 		display: grid;
+		grid-template-rows: repeat(var(--maxTurns), 1fr);
 	}
 
 	.turn {
@@ -55,7 +55,6 @@
 		border: solid #68845c 1px;
 
 		text-transform: uppercase;
-
 		line-height: calc(95% / var(--maxTurns));
 		font-size: clamp(2rem, 10vw, 4rem);
 
