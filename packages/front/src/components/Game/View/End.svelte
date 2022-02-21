@@ -2,7 +2,7 @@
 	import type { Pokemon } from '@components/types';
 	import { onMount } from 'svelte';
 	export let answer: Pokemon;
-
+	export let status: 'win' | 'lose';
 	export let results: number[][] = [];
 
 	$: shareableResult = results.map((result) =>
@@ -34,6 +34,10 @@
 	}
 </script>
 
+<p>
+	{status === 'win' ? 'Nice Job!' : 'Good Try!'}
+</p>
+
 <div class="wrapper">
 	<p class="name">
 		{answer.name}
@@ -56,7 +60,7 @@
 </div>
 <div class="actions">
 	<button on:click={handleCopy}>Copy Results</button>
-	<a href="." target="_self" on:click={() => location.reload()}>Reset</a>
+	<a href="#reset" target="_self" on:click={() => location.reload()}>Reset</a>
 </div>
 
 <style>

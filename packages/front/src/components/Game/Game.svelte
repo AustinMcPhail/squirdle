@@ -1,10 +1,10 @@
 <script lang="ts">
-	import GameView, { Board, Win } from './View';
+	import GameView, { Board, End } from './View';
 	import GameControls from './Controls';
 	import type { Pokemon } from '../types';
 	import { onMount } from 'svelte';
 
-	export let status: 'play' | 'win' | 'lose' = 'lose';
+	export let status: 'play' | 'win' | 'lose' = 'play';
 
 	export let maxTurns = 6;
 	export let answer: Pokemon;
@@ -162,10 +162,8 @@
 				{turnResults}
 				{turnInputs}
 			/>
-		{:else if status === 'win'}
-			<Win {answer} results={turnResults} />
-		{:else if status === 'lose'}
-			<p>Lost</p>
+		{:else if status === 'win' || status === 'lose'}
+			<End {answer} {status} results={turnResults} />
 		{/if}
 	</GameView>
 	<GameControls
