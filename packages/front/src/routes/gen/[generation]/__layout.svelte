@@ -9,6 +9,9 @@
 				answer: data.validPokemon,
 				words: data.pokemon,
 				gen: params.generation
+			},
+			props: {
+				gen: params.generation
 			}
 		};
 	}
