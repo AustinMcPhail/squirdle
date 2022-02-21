@@ -97,7 +97,7 @@ export const getPokemonFromGeneration = async (
 ): Promise<{ data?: Pokemon; error?: Error }> => {
 	const { data: randomPokemon, error } = await getOne<Pokemon>(
 		fastify,
-		`SELECT id, name, generation, url, image, cry, types FROM pokemon where generation = ?`,
+		`SELECT id, name, generation, url, image, cry, types FROM pokemon where generation = ? order by rand() limit 1`,
 		[generation]
 	);
 	if (error || !randomPokemon) {
