@@ -16,7 +16,6 @@
 <style>
 	:root {
 		--game-size: calc(100vw - var(--space, 1rem) * 2);
-		--border: solid white 1px;
 	}
 
 	.hints {
@@ -29,6 +28,8 @@
 
 		padding: var(--space);
 		margin-bottom: var(--space);
+
+		background: var(--outer-background);
 	}
 	@media (min-width: 400px) {
 		.view {
@@ -39,5 +40,7 @@
 	.inner-view {
 		height: var(--game-size);
 		width: 100%;
+
+		background: var(--inner-background);
 	}
 </style>

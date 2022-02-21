@@ -37,9 +37,8 @@
 
 <style>
 	.board {
-		background: #68845c40;
 		position: relative;
-		border: var(--border);
+		border: var(--inner-border);
 		border-radius: 2px;
 		height: 100%;
 		display: grid;
@@ -75,12 +74,13 @@
 
 	.box[data-status='1'] {
 		opacity: 0.5;
+		background: var(--incorrect);
 	}
 	.box[data-status='2'] {
-		background: rgba(0, 0, 255, 0.25);
+		background: var(--exists);
 	}
 	.box[data-status='3'] {
-		background: rgba(0, 255, 0, 0.25);
+		background: var(--correct);
 	}
 
 	/* blink keyframes */

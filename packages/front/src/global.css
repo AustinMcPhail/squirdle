@@ -3,6 +3,32 @@
 
 :root {
 	--space: 1rem;
+	--space-2: 2rem;
+
+	--black: #000000;
+	--red: #ce2211;
+	--orange: #e54222;
+	--green: #37796c;
+	--slate: #0c3348;
+	--blue: #1c4cbd;
+	--light-blue: #5ebdfc;
+	--cyan: #16d6fb;
+	--lime: #effcd5;
+	--white: #ffffff;
+	--gray: #dfdfdf;
+
+	--blank: var(--rad);
+	--incorrect: var(--gray);
+	--exists: var(--blue);
+	--correct: var(--green);
+
+	--border: solid var(--white) 1px;
+
+	--inner-background: var(--slate);
+	--outer-background: var(--blue);
+
+	--inner-border: var(--border);
+	--outer-border: var(--border);
 }
 
 * {

@@ -27,8 +27,7 @@
 		'v',
 		'b',
 		'n',
-		'm',
-		'-'
+		'm'
 	];
 
 	const dispatch = createEventDispatcher();
@@ -56,6 +55,9 @@
 	<button class="key back" id="back" style:grid-area={'<'} on:click={handleBack}>
 		{'<'}
 	</button>
+	<button class="key sp" id="back" style:grid-area={'sp'} on:click={handleBack}>
+		{'_'}
+	</button>
 	<button class="key enter" id="enter" style:grid-area={'>'} on:click={handleEnter}> GO </button>
 </div>
 
@@ -64,8 +66,8 @@
 		display: grid;
 		grid-template-areas:
 			'q w e r t y u i o p'
-			'a s d f g h j k l .'
-			'. z x c v b n m . .';
+			'a s d f g h j k l m'
+			'. z x c sp sp v b n .';
 
 		gap: 2px;
 	}
@@ -77,7 +79,8 @@
 
 		color: white;
 
-		border: solid 1px #808fff;
+		border: var(--border);
+		background: var(--blue);
 
 		font-size: 2rem;
 
@@ -90,19 +93,30 @@
 	}
 
 	div.keyboard button.back {
-		border-color: #ff5555a3;
+		background: var(--red);
 		border-width: 5px;
+
+		border-bottom-left-radius: 10px;
+	}
+
+	div.keyboard button.sp {
+		background: var(--cyan);
+		border-width: 5px;
+
+		border-bottom-right-radius: 10px;
+		border-bottom-left-radius: 10px;
 	}
 	div.keyboard button.enter {
-		grid-column: span 2;
-		border-color: #68845c;
+		background: var(--green);
 		border-width: 5px;
+
+		border-bottom-right-radius: 10px;
 	}
 	div.keyboard button:hover,
 	div.keyboard button:focus {
-		background: #808fff;
+		background: var(--light-blue);
 	}
 	div.keyboard button:active {
-		background: #3a4ddc;
+		background: var(--slate);
 	}
 </style>
