@@ -51,4 +51,5 @@ html {
 	background: linear-gradient(var(--slate-transparent), var(--slate-transparent)),
 		url('./forest.jpeg');
 	background-size: cover;
+	background-position: center;
 }

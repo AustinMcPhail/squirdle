@@ -3,7 +3,6 @@
 	import { fade, fly } from 'svelte/transition';
 
 	let showRules = false;
-	$: showGame = showRules === false;
 
 	let rulesPos = 'unset';
 	function handleGameOutroStart() {
@@ -26,7 +25,6 @@
 	<title>Squirdle</title>
 </svelte:head>
 
-<!-- {rulesDisplay} -->
 <div class="container">
 	<header>
 		<div>
