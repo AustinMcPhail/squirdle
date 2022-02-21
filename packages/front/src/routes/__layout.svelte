@@ -3,12 +3,30 @@
 	import { fade, fly } from 'svelte/transition';
 
 	let showRules = false;
+	$: showGame = showRules === false;
+
+	let rulesPos = 'unset';
+	function handleGameOutroStart() {
+		rulesPos = 'fixed';
+	}
+	function handleGameOutroEnd() {
+		rulesPos = 'unset';
+	}
+
+	let gamePos = 'unset';
+	function handleRulesOutroStart() {
+		gamePos = 'fixed';
+	}
+	function handleRulesOutroEnd() {
+		gamePos = 'unset';
+	}
 </script>
 
 <svelte:head>
 	<title>Squirdle</title>
 </svelte:head>
 
+<!-- {rulesDisplay} -->
 <div class="container">
 	<header>
 		<div>
@@ -21,11 +39,30 @@
 		</div>
 	</header>
 	{#if showRules}
-		<aside out:fly={{ x: 200, duration: 300 }} in:fly={{ x: -200, duration: 300, delay: 300 }}>
-			<h3>Rules</h3>
+		<aside
+			style:position={rulesPos}
+			out:fly={{ x: 200, duration: 300 }}
+			in:fade={{ duration: 300, delay: 350 }}
+			on:introstart={() => console.log('introstart')}
+			on:outrostart={handleRulesOutroStart}
+			on:outroend={handleRulesOutroEnd}
+		>
+			<div>
+				<p>Squirdle is a game of guessing words. But not just any words. Pokémon names.</p>
+				<p>
+					The goal is to use guesses and deductive reasoning to guess the word, using the positions
+					of incorrect and correct words as your hints.
+				</p>
+			</div>
 		</aside>
 	{:else}
-		<main out:fly={{ x: 200, duration: 300 }} in:fly={{ x: -200, duration: 300, delay: 300 }}>
+		<main
+			style:position={gamePos}
+			out:fly={{ x: 200, duration: 300 }}
+			in:fade={{ duration: 300, delay: 350 }}
+			on:outrostart={handleGameOutroStart}
+			on:outroend={handleGameOutroEnd}
+		>
 			<slot />
 		</main>
 	{/if}
@@ -41,7 +78,6 @@
 	header {
 		padding-block: var(--space);
 		font-size: clamp(2rem, 4vw, 5rem);
-		text-shadow: -1px 0 blue, 0 1px blue, 1px 0 blue, 0 -1px blue;
 		text-align: center;
 
 		display: flex;
@@ -107,9 +143,13 @@
 	}
 	aside {
 		grid-area: rules;
+		display: grid;
+		place-items: center;
 	}
-	aside h3 {
-		text-align: center;
+
+	aside div {
+		max-width: clamp(40rem, 25vw, 100%);
+		padding: var(--space-2);
 	}
 	@media (min-width: 768px) {
 	}
