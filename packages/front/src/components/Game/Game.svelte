@@ -142,6 +142,8 @@
 
 <style>
 	.game {
+		max-width: clamp(40rem, 25vw, 100%);
+
 		height: 100%;
 		width: 100%;
 		display: grid;
