@@ -144,6 +144,7 @@
 </script>
 
 <div class="game">
+	{answer.name}
 	<GameView
 		hints={status === 'play' ? 0 : Infinity}
 		cry={answer.cry}
