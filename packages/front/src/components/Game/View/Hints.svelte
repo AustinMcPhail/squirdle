@@ -12,7 +12,7 @@
 		cryPlayer.volume = 0.25;
 	});
 
-	$: label = hints > 2 ? 'Sound' : 'Type';
+	$: label = hints >= 2 ? 'Sound' : 'Type';
 	$: showCry = types.length === 2 ? hints > 2 : hints > 1;
 
 	export let hints = 0;
@@ -23,7 +23,7 @@
 </script>
 
 <div class="hints">
-	{#if hints < 3}
+	{#if types.length === 2 ? hints < 3 : hints < 2}
 		<button class="shine" on:click={() => (hints += 1)}>{label}</button>
 	{/if}
 	{#if hints > 0}
