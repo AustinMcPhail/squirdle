@@ -111,7 +111,7 @@
 	}
 
 	div.keyboard button.back {
-		background: var(--red);
+		background: var(--orange);
 		border-width: 5px;
 
 		border-bottom-left-radius: 10px;
