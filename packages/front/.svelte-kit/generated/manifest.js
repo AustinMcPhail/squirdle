@@ -2,7 +2,7 @@ const c = [
 	() => import("../../src/routes/__layout.svelte"),
 	() => import("../../src/routes/__error.svelte"),
 	() => import("../../src/routes/index.svelte"),
-	() => import("../../src/routes/daily.svelte"),
+	() => import("../../src/routes/random.svelte"),
 	() => import("../../src/routes/gen/[generation]/index.svelte")
 ];
 
@@ -12,8 +12,8 @@ export const routes = [
 	// src/routes/index.svelte
 	[/^\/$/, [c[0], c[2]], [c[1]]],
 
-	// src/routes/daily.svelte
-	[/^\/daily\/?$/, [c[0], c[3]], [c[1]]],
+	// src/routes/random.svelte
+	[/^\/random\/?$/, [c[0], c[3]], [c[1]]],
 
 	// src/routes/gen/[generation]/index.svelte
 	[/^\/gen\/([^/]+?)\/?$/, [c[0], c[4]], [c[1]], (m) => ({ generation: d(m[1])})]

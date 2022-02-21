@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
-	import { getDailyChallenge } from '@utils';
+	import { getRandomPokemon } from '@utils';
 	export async function load({ fetch }) {
-		const { data, error } = await getDailyChallenge(fetch);
+		const { data, error } = await getRandomPokemon(fetch);
 		if (error) return error;
 		return {
 			props: {
@@ -18,6 +18,7 @@
 
 	export let answer: Pokemon;
 	export let words = [];
+	let status: 'play' | 'win' | 'lose' = 'play';
 </script>
 
-<Game {answer} {words} />
+<Game bind:status {answer} {words} />
