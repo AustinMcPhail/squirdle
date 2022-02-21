@@ -30,6 +30,10 @@
 		'm'
 	];
 
+	export let incorrectLetters: string[] = [];
+	export let correctLetters: string[] = [];
+	export let existingLetters: string[] = [];
+
 	const dispatch = createEventDispatcher();
 
 	const handleKeyPress = (key) => {
@@ -48,7 +52,15 @@
 
 <div class="keyboard">
 	{#each keys as key}
-		<button class="key" id={key} style:grid-area={key} on:click={() => handleKeyPress(key)}>
+		<button
+			class="key"
+			id={key}
+			style:grid-area={key}
+			on:click={() => handleKeyPress(key)}
+			class:incorrect={incorrectLetters.includes(key)}
+			class:exists={existingLetters.includes(key)}
+			class:correct={correctLetters.includes(key)}
+		>
 			{key}
 		</button>
 	{/each}
@@ -118,5 +130,15 @@
 	}
 	div.keyboard button:active {
 		background: var(--slate);
+	}
+
+	div.keyboard button.incorrect {
+		background: var(--incorrect);
+	}
+	div.keyboard button.correct {
+		background: var(--correct);
+	}
+	div.keyboard button.exists {
+		background: var(--exists);
 	}
 </style>

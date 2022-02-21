@@ -78,6 +78,10 @@
 	let win = false;
 	let lose = false;
 
+	let incorrectLetters: string[] = [];
+	let correctLetters: string[] = [];
+	let existingLetters: string[] = [];
+
 	const handleTurnInput = (i: string) => {
 		if (i.length < answer.name.length) return;
 		if (currentTurn >= maxTurns) return;
@@ -88,7 +92,22 @@
 		input = i;
 		const turn = input.split('');
 		turnInputs = [...turnInputs, turn];
-		turnResults = [...turnResults, getTurnResults(turn)];
+
+		const res = getTurnResults(turn);
+		turnResults = [...turnResults, res];
+
+		turn.forEach((character, i) => {
+			const value = res[i];
+			console.log({ character, value });
+			if (value === 3 && !correctLetters.includes(character)) {
+				correctLetters = [...correctLetters, character];
+			} else if (value === 2 && !existingLetters.includes(character)) {
+				existingLetters = [...existingLetters, character];
+			} else if (!incorrectLetters.includes(character)) {
+				incorrectLetters = [...incorrectLetters, character];
+				console.log({ incorrectLetters });
+			}
+		});
 
 		checkGameState();
 	};
@@ -137,7 +156,14 @@
 			<p>Lost</p>
 		{/if}
 	</GameView>
-	<GameControls bind:input on:submit={handleSubmit} length={answer.name.length} />
+	<GameControls
+		{incorrectLetters}
+		{correctLetters}
+		{existingLetters}
+		bind:input
+		on:submit={handleSubmit}
+		length={answer.name.length}
+	/>
 </div>
 
 <style>

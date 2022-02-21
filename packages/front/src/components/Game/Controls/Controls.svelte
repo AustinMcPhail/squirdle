@@ -5,6 +5,10 @@
 	export let length: number;
 	export let input: string;
 
+	export let incorrectLetters: string[] = [];
+	export let correctLetters: string[] = [];
+	export let existingLetters: string[] = [];
+
 	const dispatch = createEventDispatcher();
 	function handleKeyboardInput({ detail: { key } }) {
 		if (input.length < length) {
@@ -20,6 +24,9 @@
 </script>
 
 <Keyboard
+	{incorrectLetters}
+	{correctLetters}
+	{existingLetters}
 	on:keyPress={handleKeyboardInput}
 	on:back={handleKeyboardBack}
 	on:enter={handleKeyboardEnter}
