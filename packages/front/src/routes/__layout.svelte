@@ -76,7 +76,7 @@
 		overflow: hidden;
 	}
 	header {
-		padding-block: var(--space);
+		padding-bottom: var(--space);
 		font-size: clamp(2rem, 4vw, 5rem);
 		text-align: center;
 
@@ -98,10 +98,6 @@
 		background: var(--blue);
 
 		border: var(--border);
-
-		border-radius: 10px;
-		border-bottom-right-radius: 0;
-		border-bottom-left-radius: 0;
 
 		display: grid;
 		align-items: center;
@@ -152,5 +148,13 @@
 		padding: var(--space-2);
 	}
 	@media (min-width: 768px) {
+		header {
+			padding-top: var(--space);
+		}
+
+		header > div {
+			border-top-right-radius: 10px;
+			border-top-left-radius: 10px;
+		}
 	}
 </style>

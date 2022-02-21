@@ -17,6 +17,8 @@
 	--white: #ffffff;
 	--gray: #dfdfdf;
 
+	--slate-transparent: hsla(201, 71%, 5%, 0.85);
+
 	--blank: var(--rad);
 	--incorrect: var(--gray);
 	--exists: var(--blue);
@@ -39,6 +41,13 @@ body {
 	font-family: 'VT323', monospace;
 
 	font-size: 2rem;
-	background: rgb(27, 27, 27);
+
 	color: white;
+}
+
+html {
+	min-height: 100vh;
+	background: linear-gradient(var(--slate-transparent), var(--slate-transparent)),
+		url('./forest.jpeg');
+	background-size: cover;
 }
