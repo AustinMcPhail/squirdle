@@ -49,6 +49,9 @@
 			on:outroend={handleRulesOutroEnd}
 		>
 			<div>
+				<a href="https://www.nytimes.com/games/wordle/index.html" target="_blank">
+					<img style:height="4rem" src="inspired.png" alt="Inspired by Wordle" />
+				</a>
 				<p>Squirdle is a game of guessing words. But not just any words. Pokémon names.</p>
 				<p>
 					The goal is to use guesses and deductive reasoning to guess the word, using the positions
@@ -176,6 +179,11 @@
 	aside > div {
 		max-width: clamp(40rem, 25vw, 100%);
 		padding: var(--space-2);
+	}
+
+	aside > div > a {
+		display: grid;
+		place-items: center;
 	}
 	@media (min-width: 768px) {
 		header {
