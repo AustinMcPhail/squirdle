@@ -24,7 +24,7 @@
 <svelte:head>
 	<meta
 		name="description"
-		content="With this spin on Wordle you challenge your knowledge of Pokémon!"
+		content="With this spin on Wordle you challenge your knowledge of Pokemon!"
 	/>
 	<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
 	<html lang="en" />
