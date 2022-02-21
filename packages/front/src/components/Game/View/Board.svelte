@@ -6,12 +6,22 @@
 	export let input: string;
 	export let turnResults: string[][];
 	export let turnInputs: string[][];
+
+	export let failedAttempt = false;
+
+	$: {
+		if (failedAttempt) {
+			setTimeout(() => {
+				failedAttempt = false;
+			}, 500);
+		}
+	}
 </script>
 
 <div class="board">
 	<div class="inner">
 		{#each Array.from({ length: turns }) as _, turn}
-			<div class="turn">
+			<div class="turn" class:failedAttempt={currentTurn === turn && failedAttempt}>
 				{#each Array.from({ length }) as _, position}
 					<div
 						class="box"
@@ -51,6 +61,46 @@
 	.turn {
 		display: inline-grid;
 		grid-template-columns: repeat(var(--wordLength), 1fr);
+	}
+
+	@keyframes shake {
+		0% {
+			transform: translate(0, 0);
+		}
+		10% {
+			transform: translate(0, -2px);
+		}
+		20% {
+			transform: translate(0, 2px);
+		}
+		30% {
+			transform: translate(0, -2px);
+		}
+		40% {
+			transform: translate(0, 2px);
+		}
+		50% {
+			transform: translate(0, -2px);
+		}
+		60% {
+			transform: translate(0, 2px);
+		}
+		70% {
+			transform: translate(0, -2px);
+		}
+		80% {
+			transform: translate(0, 2px);
+		}
+		90% {
+			transform: translate(0, -2px);
+		}
+		100% {
+			transform: translate(0, 0);
+		}
+	}
+
+	.turn.failedAttempt {
+		animation: shake 0.5s;
 	}
 
 	.box {

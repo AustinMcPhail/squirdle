@@ -8,7 +8,7 @@
 	export let maxTurns = 6;
 	export let answer: Pokemon;
 	export let words = [];
-	let active = false;
+	let failedAttempt = false;
 
 	let currentTurn = 0;
 	$: turnInputs = [];
@@ -87,7 +87,10 @@
 		if (currentTurn >= maxTurns) return;
 
 		// TODO: Allow for spaces & check for words short than the target word
-		if (!words.includes(i.replace(/_/g, ''))) return;
+		if (!words.includes(i.replace(/_/g, ''))) {
+			failedAttempt = true;
+			return;
+		}
 
 		input = i;
 		const turn = input.split('');
@@ -141,6 +144,7 @@
 	<GameView cry={answer.cry} types={answer.types} length={answer.name.length} turns={maxTurns}>
 		{#if status === 'play'}
 			<Board
+				bind:failedAttempt
 				length={answer.name.length}
 				turns={maxTurns}
 				{currentTurn}
