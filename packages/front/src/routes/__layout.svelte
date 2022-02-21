@@ -1,5 +1,6 @@
 <script>
 	import '../global.css';
+	import { fade, fly } from 'svelte/transition';
 
 	let showRules = false;
 </script>
@@ -20,11 +21,11 @@
 		</div>
 	</header>
 	{#if showRules}
-		<aside>
+		<aside out:fly={{ x: 200, duration: 300 }} in:fly={{ x: -200, duration: 300, delay: 300 }}>
 			<h3>Rules</h3>
 		</aside>
 	{:else}
-		<main>
+		<main out:fly={{ x: 200, duration: 300 }} in:fly={{ x: -200, duration: 300, delay: 300 }}>
 			<slot />
 		</main>
 	{/if}
@@ -34,6 +35,8 @@
 	.container {
 		display: flex;
 		flex-direction: column;
+
+		overflow: hidden;
 	}
 	header {
 		padding-block: var(--space);
@@ -69,6 +72,8 @@
 		grid-template-columns: 1fr 1fr 1fr;
 
 		width: clamp(40rem, 25vw, 100%);
+
+		overflow: hidden;
 	}
 
 	header img {
@@ -84,6 +89,12 @@
 
 		height: 100%;
 		max-width: 3rem;
+
+		transition: transform 0.2s;
+	}
+	header button:hover,
+	header button:focus {
+		transform: rotate(12deg) scale(1.1);
 	}
 	header button img {
 		height: 100%;
