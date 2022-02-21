@@ -4,7 +4,7 @@
 	import type { Pokemon } from '../types';
 	import { onMount } from 'svelte';
 
-	export let status: 'play' | 'win' | 'lose' = 'play';
+	export let status: 'play' | 'win' | 'lose' = 'lose';
 
 	export let maxTurns = 6;
 	export let answer: Pokemon;

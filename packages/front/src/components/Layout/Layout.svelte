@@ -34,12 +34,12 @@
 	<header>
 		<div>
 			<a href="/" target="_self" on:click={() => (showRules = false)}>
-				<img class="title" src="Squirdle.png" alt="Squirdle" />
+				<img class="title" src="../Squirdle.png" alt="Squirdle" />
 			</a>
 
 			<div class="help">
 				<button aria-label="Show Help" on:click={() => (showRules = !showRules)}>
-					<img src="questionmark.png" alt="help" />
+					<img src="../questionmark.png" alt="help" />
 				</button>
 			</div>
 		</div>
@@ -55,7 +55,7 @@
 		>
 			<div>
 				<a href="https://www.nytimes.com/games/wordle/index.html" target="_blank">
-					<img style:height="4rem" src="inspired.png" alt="Inspired by Wordle" />
+					<img style:height="4rem" src="../inspired.png" alt="Inspired by Wordle" />
 				</a>
 				<p>Squirdle is a game of guessing words. But not just any words. Pokémon names.</p>
 				<p>
