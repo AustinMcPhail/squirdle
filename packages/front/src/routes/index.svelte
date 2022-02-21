@@ -1,13 +1,7 @@
 <script context="module" lang="ts">
-	import { getDailyChallenge } from '@utils';
-	export async function load({ fetch }) {
-		const { data, error } = await getDailyChallenge(fetch);
-		if (error) return error;
+	export async function load({ stuff }) {
 		return {
-			props: {
-				answer: data.validPokemon,
-				words: data.pokemon
-			}
+			props: stuff
 		};
 	}
 </script>

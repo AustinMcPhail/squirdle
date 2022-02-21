@@ -1,8 +1,7 @@
 <script context="module" lang="ts">
-	import Layout from '@components/Layout/Layout.svelte';
-	import { getDailyChallenge } from '@utils';
+	import { getRandomPokemon } from '@utils';
 	export async function load({ fetch }) {
-		const { data, error } = await getDailyChallenge(fetch);
+		const { data, error } = await getRandomPokemon(fetch);
 		if (error) return error;
 
 		return {
@@ -14,6 +13,4 @@
 	}
 </script>
 
-<Layout>
-	<slot />
-</Layout>
+<slot />
