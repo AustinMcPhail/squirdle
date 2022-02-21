@@ -16,12 +16,10 @@
 					<div
 						class="box"
 						data-status={turnResults[turn] ? turnResults[turn][position] : ''}
+						data-blank={turnInputs?.[turn]?.[position] === '_' ||
+							(currentTurn === turn && input.charAt(position) === '_')}
 						class:cursor={input.length === position && currentTurn === turn}
 						style:transition-delay={`${position * 0.1}s`}
-						style:border-left={position === 0 ? 'none' : ''}
-						style:border-right={position === length - 1 ? 'none' : ''}
-						style:border-top={turn === 0 ? 'none' : ''}
-						style:border-bottom={turn === turns - 1 ? 'none' : ''}
 					>
 						{#if currentTurn === turn}
 							{input.charAt(position) || ''}
@@ -81,6 +79,10 @@
 	}
 	.box[data-status='3'] {
 		background: var(--correct);
+	}
+
+	.box[data-blank='true'] {
+		background: var(--blank);
 	}
 
 	/* blink keyframes */

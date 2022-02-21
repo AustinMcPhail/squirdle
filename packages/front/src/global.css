@@ -19,7 +19,7 @@
 
 	--slate-transparent: hsla(201, 71%, 5%, 0.85);
 
-	--blank: var(--rad);
+	--blank: var(--red);
 	--incorrect: var(--gray);
 	--exists: var(--blue);
 	--correct: var(--green);

@@ -55,7 +55,7 @@
 	<button class="key back" id="back" style:grid-area={'<'} on:click={handleBack}>
 		{'<'}
 	</button>
-	<button class="key sp" id="back" style:grid-area={'sp'} on:click={handleBack}>
+	<button class="key sp" id="back" style:grid-area={'sp'} on:click={() => handleKeyPress('_')}>
 		{'_'}
 	</button>
 	<button class="key enter" id="enter" style:grid-area={'>'} on:click={handleEnter}> GO </button>

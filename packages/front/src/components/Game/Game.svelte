@@ -83,7 +83,7 @@
 		if (currentTurn >= maxTurns) return;
 
 		// TODO: Allow for spaces & check for words short than the target word
-		if (!words.includes(i)) return;
+		if (!words.includes(i.replace('_', ''))) return;
 
 		input = i;
 		const turn = input.split('');
