@@ -15,4 +15,7 @@
 	let status: 'play' | 'win' | 'lose' = 'play';
 </script>
 
+<svelte:head>
+	<title>Squirdle | Random</title>
+</svelte:head>
 <Game bind:status {answer} {words} />

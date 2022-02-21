@@ -1,14 +1,7 @@
-<script context="module">
-	import { getGenerationPokemon } from '@utils';
-
-	export async function load({ params, fetch }) {
-		const { data, error } = await getGenerationPokemon(params.generation, fetch);
-		if (error) return error;
+<script context="module" lang="ts">
+	export async function load({ stuff }) {
 		return {
-			props: {
-				answer: data.validPokemon,
-				words: data.pokemon
-			}
+			props: stuff
 		};
 	}
 </script>

@@ -14,4 +14,8 @@
 	export let words = [];
 </script>
 
+<svelte:head>
+	<title>Squirdle | Daily</title>
+</svelte:head>
+
 <Game {answer} {words} />

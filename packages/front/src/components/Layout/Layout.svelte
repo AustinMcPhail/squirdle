@@ -22,7 +22,12 @@
 </script>
 
 <svelte:head>
-	<title>Squirdle</title>
+	<meta
+		name="description"
+		content="With this spin on Wordle you challenge your knowledge of Pokémon!"
+	/>
+	<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+	<html lang="en" />
 </svelte:head>
 
 <div class="container">
