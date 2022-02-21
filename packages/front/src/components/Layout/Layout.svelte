@@ -28,7 +28,7 @@
 <div class="container">
 	<header>
 		<div>
-			<a href="/" on:click={() => (showRules = false)}>
+			<a href="/" target="_self" on:click={() => (showRules = false)}>
 				<img class="title" src="Squirdle.png" alt="Squirdle" />
 			</a>
 
@@ -70,8 +70,10 @@
 					</p>
 				</div>
 				<p class="practice">
-					Want to practice? Try <a href="/random" on:click={() => (showRules = false)}
-						>random mode</a
+					Want to practice? Try <a
+						href="/random"
+						target="_self"
+						on:click={() => (showRules = false)}>random mode</a
 					>!
 				</p>
 			</div>
