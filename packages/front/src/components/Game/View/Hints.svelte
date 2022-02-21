@@ -14,7 +14,8 @@
 
 	$: label = hints > 2 ? 'Sound' : 'Type';
 	$: showCry = types.length === 2 ? hints > 2 : hints > 1;
-	$: hints = 0;
+
+	export let hints = 0;
 
 	function playCry() {
 		cryPlayer.play();

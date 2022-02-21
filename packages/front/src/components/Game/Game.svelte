@@ -141,7 +141,13 @@
 </script>
 
 <div class="game">
-	<GameView cry={answer.cry} types={answer.types} length={answer.name.length} turns={maxTurns}>
+	<GameView
+		hints={status === 'play' ? 0 : Infinity}
+		cry={answer.cry}
+		types={answer.types}
+		length={answer.name.length}
+		turns={maxTurns}
+	>
 		{#if status === 'play'}
 			<Board
 				bind:failedAttempt

@@ -6,14 +6,14 @@
 
 	export let length: number;
 	export let turns: number;
+	export let hints = 0;
 </script>
 
 <div class="view" style:--wordLength={length} style:--maxTurns={turns} class:active={true}>
 	<div class="inner-view">
 		<slot />
 	</div>
-
-	<Hints {types} {cry} />
+	<Hints {hints} {types} {cry} />
 </div>
 
 <style>
