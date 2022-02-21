@@ -12,7 +12,7 @@
 		cryPlayer.volume = 0.25;
 	});
 
-	$: label = hints >= 2 ? 'Sound' : 'Type';
+	$: label = (types.length === 2 ? hints >= 2 : hints >= 1) ? 'Sound' : 'Type';
 	$: showCry = types.length === 2 ? hints > 2 : hints > 1;
 
 	export let hints = 0;
