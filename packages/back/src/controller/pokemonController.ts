@@ -53,7 +53,6 @@ export default async function pokemonController(fastify: FastifyInstance) {
 			fastify,
 			generation
 		);
-		console.info('Gen: ' + JSON.stringify(pokemon));
 		if (pokemonError || !pokemon) {
 			reply.status(500).send(pokemonError || new Error('Could not get generation'));
 			return;
