@@ -7,10 +7,12 @@
 	export let length: number;
 	export let turns: number;
 	export let hints = 0;
+
+	export let gameActive = true;
 </script>
 
 <div class="view" style:--wordLength={length} style:--maxTurns={turns} class:active={true}>
-	<div class="inner-view">
+	<div data-gameactive={gameActive} class="inner-view">
 		<slot />
 	</div>
 	<Hints {hints} {types} {cry} />
@@ -42,9 +44,13 @@
 	}
 
 	.inner-view {
-		height: var(--game-size);
 		width: 100%;
-
 		background: var(--inner-background);
+	}
+	.inner-view[data-gameactive='true'] {
+		height: var(--game-size);
+	}
+	.inner-view[data-gameactive='false'] {
+		min-height: var(--game-size);
 	}
 </style>

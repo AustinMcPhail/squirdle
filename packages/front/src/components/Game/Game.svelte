@@ -2,6 +2,7 @@
 	import GameView, { Board, Win } from './View';
 	import GameControls from './Controls';
 	import type { Pokemon } from '../types';
+	import { onMount } from 'svelte';
 
 	export let status: 'play' | 'win' | 'lose' = 'play';
 
@@ -68,6 +69,8 @@
 					return 1;
 				}
 			}
+
+			if (char === '_') return -1;
 
 			// Incorrect character
 			return 1;
@@ -147,6 +150,7 @@
 		types={answer.types}
 		length={answer.name.length}
 		turns={maxTurns}
+		gameActive={status === 'play'}
 	>
 		{#if status === 'play'}
 			<Board
@@ -159,7 +163,7 @@
 				{turnInputs}
 			/>
 		{:else if status === 'win'}
-			<Win {answer} />
+			<Win {answer} results={turnResults} />
 		{:else if status === 'lose'}
 			<p>Lost</p>
 		{/if}
