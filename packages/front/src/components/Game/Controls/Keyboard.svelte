@@ -83,11 +83,15 @@
 
 		gap: 2px;
 
-		background: var(--outer-background);
+		background: var(--slate);
+
 		border-color: var(--outer-background);
 		border-style: outset;
 		border-width: 5px;
-		padding: var(--space);
+		border-bottom-right-radius: 10px;
+		border-bottom-left-radius: 10px;
+
+		padding: calc(var(--space) / 2);
 	}
 
 	div.keyboard button {
