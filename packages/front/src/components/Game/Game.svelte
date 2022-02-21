@@ -98,14 +98,12 @@
 
 		turn.forEach((character, i) => {
 			const value = res[i];
-			console.log({ character, value });
 			if (value === 3 && !correctLetters.includes(character)) {
 				correctLetters = [...correctLetters, character];
 			} else if (value === 2 && !existingLetters.includes(character)) {
 				existingLetters = [...existingLetters, character];
 			} else if (!incorrectLetters.includes(character)) {
 				incorrectLetters = [...incorrectLetters, character];
-				console.log({ incorrectLetters });
 			}
 		});
 
