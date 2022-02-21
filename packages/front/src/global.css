@@ -48,8 +48,7 @@ body {
 
 html {
 	min-height: 100vh;
-	background: linear-gradient(var(--slate-transparent), var(--slate-transparent)),
-		url('./forest.png');
+	background: linear-gradient(var(--slate-transparent), var(--slate-transparent)), url('forest.png');
 	background-size: cover;
 	background-position: center;
 }
