@@ -30,7 +30,10 @@
 <div class="container">
 	<header>
 		<div>
-			<img class="title" src="Squirdle.png" alt="Squirdle" />
+			<a href="/" on:click={() => (showRules = false)}>
+				<img class="title" src="Squirdle.png" alt="Squirdle" />
+			</a>
+
 			<div class="help">
 				<button aria-label="Show Help" on:click={() => (showRules = !showRules)}>
 					<img src="questionmark.png" alt="help" />
@@ -53,6 +56,21 @@
 					The goal is to use guesses and deductive reasoning to guess the word, using the positions
 					of incorrect and correct words as your hints.
 				</p>
+				<div class="guesses">
+					<p>
+						<span class="correct" /> is a correct guess.
+					</p>
+					<p>
+						<span class="exists" /> is a letter that exists in the answer one or more times.
+					</p>
+					<p>
+						<span class="incorrect" /> is an incorrect guess.
+					</p>
+					<p>
+						<span class="blank" /> is a space spot, allowing for guesses that are of shorter length than
+						the actual answer.
+					</p>
+				</div>
 			</div>
 		</aside>
 	{:else}
@@ -108,8 +126,13 @@
 		overflow: hidden;
 	}
 
-	header img {
+	header a {
 		grid-column: 2;
+	}
+
+	header a {
+		display: grid;
+		place-items: center;
 	}
 
 	header button {
@@ -143,7 +166,7 @@
 		place-items: center;
 	}
 
-	aside div {
+	aside > div {
 		max-width: clamp(40rem, 25vw, 100%);
 		padding: var(--space-2);
 	}
@@ -156,5 +179,61 @@
 			border-top-right-radius: 10px;
 			border-top-left-radius: 10px;
 		}
+
+		aside div {
+			padding-inline: 0;
+		}
+	}
+
+	aside p {
+		--size: 50px;
+		text-shadow: -1px 0 var(--blue), 0 1px var(--blue), 1px 0 var(--blue), 0 -1px var(--blue);
+	}
+
+	.guesses {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+		margin-top: var(--space-2);
+	}
+
+	.guesses p {
+		display: flex;
+		align-items: center;
+		gap: var(--space);
+	}
+
+	.correct {
+		flex-shrink: 0;
+		display: inline-block;
+		border: var(--border);
+		background-color: var(--correct);
+		height: var(--size);
+		width: var(--size);
+	}
+
+	.exists {
+		flex-shrink: 0;
+		display: inline-block;
+		border: var(--border);
+		background-color: var(--exists);
+		height: var(--size);
+		width: var(--size);
+	}
+	.incorrect {
+		flex-shrink: 0;
+		display: inline-block;
+		border: var(--border);
+		background-color: var(--incorrect);
+		height: var(--size);
+		width: var(--size);
+	}
+	.blank {
+		flex-shrink: 0;
+		display: inline-block;
+		border: var(--border);
+		background-color: var(--blank);
+		height: var(--size);
+		width: var(--size);
 	}
 </style>

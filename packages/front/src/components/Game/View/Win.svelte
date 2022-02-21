@@ -1,6 +1,13 @@
 <script lang="ts">
 	import type { Pokemon } from '@components/types';
+	import { onMount } from 'svelte';
 	export let answer: Pokemon;
+
+	onMount(() => {
+		const a = new Audio(answer.cry);
+		a.volume = 0.25;
+		a.play();
+	});
 </script>
 
 <p>
