@@ -140,7 +140,7 @@
 </script>
 
 <div class="game">
-	<GameView length={answer.name.length} turns={maxTurns}>
+	<GameView cry={answer.cry} types={answer.types} length={answer.name.length} turns={maxTurns}>
 		{#if status === 'play'}
 			<Board
 				length={answer.name.length}

@@ -111,9 +111,11 @@
 	}
 
 	header > div {
-		background: var(--blue);
+		background: var(--outer-background);
 
-		border: var(--border);
+		border-color: var(--outer-background);
+		border-style: outset;
+		border-width: 5px;
 
 		display: grid;
 		align-items: center;

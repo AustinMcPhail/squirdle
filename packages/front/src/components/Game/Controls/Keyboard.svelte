@@ -82,6 +82,12 @@
 			'. z x c sp sp v b n .';
 
 		gap: 2px;
+
+		background: var(--outer-background);
+		border-color: var(--outer-background);
+		border-style: outset;
+		border-width: 5px;
+		padding: var(--space);
 	}
 
 	div.keyboard button {

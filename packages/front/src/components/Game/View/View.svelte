@@ -1,4 +1,9 @@
 <script lang="ts">
+	import Hints from './Hints.svelte';
+
+	export let types: string[];
+	export let cry: string;
+
 	export let length: number;
 	export let turns: number;
 </script>
@@ -8,9 +13,7 @@
 		<slot />
 	</div>
 
-	<div class="hints">
-		<p>Hints</p>
-	</div>
+	<Hints {types} {cry} />
 </div>
 
 <style>
@@ -18,13 +21,14 @@
 		--game-size: calc(100vw - var(--space, 1rem) * 2);
 	}
 
-	.hints {
-		padding-block: var(--space);
-	}
 	.view {
-		border: var(--border);
+		/* border: var(--border); */
 		border-bottom-left-radius: 25px;
 		border-bottom-right-radius: 5px;
+
+		border-color: var(--outer-background);
+		border-style: outset;
+		border-width: 5px;
 
 		padding: var(--space);
 		margin-bottom: var(--space);
